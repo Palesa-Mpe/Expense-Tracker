@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Expense Tracker | Add Expenses</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/expenses.css">
+</head>
+<body>
+    <header><img
+        class="icon"
+        alt="dashboard-icon"
+        src="images/back-button.svg"
+        href="/dashboard"
+      />
+      <h1>ADD NEW EXPENSE</h1>
+      <img
+        class="icon"
+        alt="signout-icon"
+        src="images/leave.png"
+        href="/dashboard"
+      /></header>
+    <main>
+        <form action="">
+            <section><label for="name">Name</label><input type="text" name="name" id="name"></section>
+            <section><label for="category">Category</label><article class="dropdown"><input id="dropdown-input" type="text" name="category" placeholder="Search...">
+                <ul id="dropdown-list" class="dropdown-list">
+                  <li data-value="option1">Option 1</li>
+                  <li data-value="option2">Option 2</li>
+                  <li data-value="option3">Option 3</li>
+                  <!-- Add more options here -->
+                </ul>
+            </article>
+            </section>
+            <section><label for="description">Description</label><textarea name="description" id="description" rows="3"></textarea></section>
+            <section><label for="amount">Amount</label><span><input type="number" min="0" max="1000000" name="amount" id="amount" step="0.01"></span></section>
+            <button type="submit">Add Expense</button>
+        </form>
+    </main>
+    <footer><img class="scaryClown" src="images/clown.gif" alt="Sads">Copyright &copy; 2023</footer>
+    <script type="text/javascript" src="ts/expenses.js"></script>
+</body>
+</html>
