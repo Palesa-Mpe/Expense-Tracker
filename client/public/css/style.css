@@ -56,5 +56,6 @@ footer {
     text-align: center;
     line-height: 3em;
     z-index: 1;
-    position: relative;
+    position: absolute;
+    bottom: 0;
 }
