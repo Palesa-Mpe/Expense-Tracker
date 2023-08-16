@@ -1,0 +1,116 @@
+form {
+    width: 80%;
+    height: 100%;
+    max-width: 55rem;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0 0 7px #888888;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2em 0;
+    padding: 3em;
+    padding-bottom: 1em;
+    box-sizing: border-box;
+    font-weight: bolder;
+}
+
+form section {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1em;
+}
+
+form section input, form section select {
+    height: 2em;
+    line-height: 2em;
+    width: 50%;
+    box-sizing: border-box;
+    border: 1px grey solid;
+    border-radius: 8px;
+}
+
+form section span{
+    width: 50%;
+    box-sizing: border-box;
+}
+
+form section span::before{
+    position: absolute;
+    margin-top: 6px;
+    margin-left: 6px;
+    font-size: smaller;
+    content: 'R';
+    color: grey;
+}
+
+form section input[type="number"]{
+    width: 100%;
+    padding-top: 2px;
+    padding-left: 1.5em;
+}
+
+form section textarea {
+    resize: vertical;
+    max-height: 10em;
+    width: 50%;
+    box-sizing: border-box;
+    border: 1px grey solid;
+    border-radius: 8px;
+    padding: 0.5em;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+  width: 50%;
+}
+
+#dropdown-input {
+  width: 100%;
+  padding: 5px;
+}
+
+.dropdown-list {
+  display: none;
+  position: absolute;
+  width: 100%;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+}
+
+.dropdown-list li {
+  padding: 5px;
+  cursor: pointer;
+}
+
+.dropdown-list li:hover {
+  background-color: #f0f0f0;
+}
+
+  
+
+.scaryClown {
+    animation: scaryClown 18.4s linear infinite;
+    height: 3em;
+    position: absolute;
+    bottom: 120%;
+    right: 50px;
+}
+
+@keyframes scaryClown {
+    0% {opacity: 1;}
+    24% {opacity: 1;}
+    25% {opacity: 0;}
+    49% {left: 50px; opacity: 0;}
+    50% {opacity: 1;}
+    74% {opacity: 1;}
+    75% {opacity: 0;}
+    100% {right: 50px; opacity: 0;}
+}
