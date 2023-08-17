@@ -17,24 +17,6 @@ app.get('/', (req: Request, res: Response) => {
   res.redirect('/login');
 });
 
-// // app.get('/register', (req: Request, res: Response) => {
-// //   res.sendFile('register.html', { root: "./src/views" })
-// // });
-
-// // app.get('/dashboard', (req: Request, res: Response) => {
-// //   res.sendFile('dashboard.html', { root: "./src/views" })
-// // });
-
-// // app.get('/expensesOverview', (req: Request, res: Response) => {
-// //   res.sendFile('analytics.html', { root: "./src/views" })
-// // });
-
-// app.get('/addExpense', (req: Request, res: Response) => {
-//   console.log("here");
-  
-//   res.sendFile('index.html', { root: "./dist/views/addExpense" })
-// });
-
 app.all('*', (req: Request, res: Response) => {
   res.redirect('/addExpense');
 });
