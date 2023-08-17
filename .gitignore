@@ -1,2 +1,11 @@
 node_modules
 .vscode
+
+
+# Ignore in the server directory
+/server/dist
+/server/.env
+
+# Ignore in the client directory
+/client/dist
+/server/.env
