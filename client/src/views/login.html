@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
-
   <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Expense Tracker | Login</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pennywise</title>
+    <link rel="stylesheet" href="../public/css/login.css" />
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter"
+      rel="stylesheet"
+    />
     <script type="text/javascript" src="login.js"></script>
   </head>
   <body>
-    <section class="login__container">
-      <article class="login__card" id="card">
-        <h1>SIGN IN</h1>
-      </article>
-    </section>
+    <main>
+      <section class="title-section">
+        <section class="logo">
+          <img src="../public/images/Balloon.png" alt="Pennywise's balloon" />
+        </section>
+        <h1>PENNYWISE</h1>
+        <p>Come float with us and watch your savings rise</p>
+      </section>
+      <section class="info-section">
+        <form id="login-form">
+          <input
+            required
+            type="text"
+            placeholder="username/e-mail"
+          />
+          <input
+            required
+            type="password"
+            placeholder="password"
+          />
+          <a href="" class="forgot-password">Forgot password?</a>
+          <p id="error-inline"></p>
+          <button>Log In</button>
+          <p>Don't have an account? <a href="">Sign up</a></p>
+        </form>
+      </section>
+    </main>
   </body>
 </html>
