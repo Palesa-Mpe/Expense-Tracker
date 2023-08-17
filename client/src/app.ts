@@ -11,20 +11,20 @@ app.use(express.json());
 app.use(express.static("./src/public", { extensions: ["html", "css", "png", "svg", 'gif'] }));
 app.use(express.static("./dist/public", { extensions: ["js"] }));
 
-// app.get('/', (req: Request, res: Response) => {
-//   res.sendFile('login.html', { root: "./views/" })
-// });
+app.get('/', (req: Request, res: Response) => {
+  res.sendFile('login.html', { root: "./src/views" })
+});
 
 // app.get('/register', (req: Request, res: Response) => {
-//   res.sendFile('register.html', { root: "./views/" })
+//   res.sendFile('register.html', { root: "./src/views" })
 // });
 
 // app.get('/dashboard', (req: Request, res: Response) => {
-//   res.sendFile('dashboard.html', { root: "./views/" })
+//   res.sendFile('dashboard.html', { root: "./src/views" })
 // });
 
 // app.get('/expensesOverview', (req: Request, res: Response) => {
-//   res.sendFile('analytics.html', { root: "./views/" })
+//   res.sendFile('analytics.html', { root: "./src/views" })
 // });
 
 app.get('/addExpense', (req: Request, res: Response) => {

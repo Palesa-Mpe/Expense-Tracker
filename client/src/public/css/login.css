@@ -1,0 +1,101 @@
+* {
+  margin: 0;
+  font-family: "Inter";
+}
+main {
+    display: grid;
+  
+    grid-template-columns: 1fr 1.5fr;
+  
+    grid-template-rows: auto;
+  
+    height: 100vh;
+  
+    text-align: center;
+    justify-content: center;
+  }
+  
+.title-section {
+  background-color: #f4d160;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 2em;
+}
+
+.info-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 2em;
+  }
+  
+.logo {
+  background-color: white;
+  height: 8em;
+  width: 8em;
+  margin: 0 auto;
+  border-radius: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: #6c78ea;
+}
+
+img {
+  height: 12em;
+}
+.forgot-password {
+  display: block;
+  text-align: left;
+  margin-bottom: 4em;
+}
+
+#login-form input {
+  display: block;
+  font-size: 26px;
+  border: none;
+  border-bottom: 2px solid;
+  background-color: transparent;
+  border-color: #f4d160;
+  margin-top: 2em;
+
+  text-align: center;
+}
+
+h1 {
+  font-size: 58px;
+}
+
+p {
+  margin-top: 0.5em;
+}
+
+button {
+  width: 100%;
+  font-size: 26px;
+  height: 2em;
+  background-color: #c7c7c7;
+  border: none;
+  border-radius: 40px;
+}
+
+
+@media (max-width: 700px) {
+  main {
+    display: grid;
+
+    grid-template-columns: 1fr;
+  }
+
+  h1 {
+    font-size: 36px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+}
