@@ -11,11 +11,13 @@ interface DbConfig {
   
 export interface ResourceConfig {
     port: string | number;
+    client: string;
     dbConfig: DbConfig;
 }
 
 export const ResourceConfig: ResourceConfig = {
     port: process.env.PORT || 4040,
+    client: process.env.CLIENT || '',
     dbConfig: {
         user: process.env.DB_USER || '',
         password: process.env.DB_PASSWORD || '',
