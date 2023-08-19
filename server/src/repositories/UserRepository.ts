@@ -1,8 +1,8 @@
 import { User } from '../models/User';
 
 const users: User[] = [
-  { id: 1, name: 'John' },
-  { id: 2, name: 'Jane' },
+  { userid: 1, username: 'John' },
+  { userid: 2, username: 'Jane' },
 ];
 
 export const UserRepository = {
@@ -11,7 +11,7 @@ export const UserRepository = {
   },
 
   getUserById(id: number): User | { success: boolean; message: string } {
-    const user = users.find(user => user.id === id);
+    const user = users.find(user => user.userid === id);
     if (user) {
       return user;
     } else {
@@ -24,8 +24,8 @@ export const UserRepository = {
     return { success: true };
   },
 
-  updateUser(id: number, updatedUser: User): { success: boolean; message?: string } {
-    const index = users.findIndex(user => user.id === id);
+  updateUser(userid: number, updatedUser: User): { success: boolean; message?: string } {
+    const index = users.findIndex(user => user.userid === userid);
     if (index !== -1) {
       users[index] = updatedUser;
       return { success: true };
@@ -35,7 +35,7 @@ export const UserRepository = {
   },
 
   deleteUser(id: number): { success: boolean; message?: string } {
-    const index = users.findIndex(user => user.id === id);
+    const index = users.findIndex(user => user.userid == id);
     if (index !== -1) {
       users.splice(index, 1);
       return { success: true };

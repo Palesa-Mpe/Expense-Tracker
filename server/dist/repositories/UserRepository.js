@@ -2,15 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
 const users = [
-    { id: 1, name: 'John' },
-    { id: 2, name: 'Jane' },
+    { userid: 1, username: 'John' },
+    { userid: 2, username: 'Jane' },
 ];
 exports.UserRepository = {
     getAllUsers() {
         return users;
     },
     getUserById(id) {
-        const user = users.find(user => user.id === id);
+        const user = users.find(user => user.userid === id);
         if (user) {
             return user;
         }
@@ -22,8 +22,8 @@ exports.UserRepository = {
         users.push(newUser);
         return { success: true };
     },
-    updateUser(id, updatedUser) {
-        const index = users.findIndex(user => user.id === id);
+    updateUser(userid, updatedUser) {
+        const index = users.findIndex(user => user.userid === userid);
         if (index !== -1) {
             users[index] = updatedUser;
             return { success: true };
@@ -33,7 +33,7 @@ exports.UserRepository = {
         }
     },
     deleteUser(id) {
-        const index = users.findIndex(user => user.id === id);
+        const index = users.findIndex(user => user.userid == id);
         if (index !== -1) {
             users.splice(index, 1);
             return { success: true };

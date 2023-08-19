@@ -1,3 +1,9 @@
+:root {
+  --outcome-background: mediumspringgreen;
+  --outcome-border: mediumseagreen;
+}
+
+
 form {
     width: 80%;
     height: 100%;
@@ -94,23 +100,14 @@ form section textarea {
   background-color: #f0f0f0;
 }
 
-  
-
-.scaryClown {
-    animation: scaryClown 18.4s linear infinite;
-    height: 3em;
-    position: absolute;
-    bottom: 120%;
-    right: 50px;
-}
-
-@keyframes scaryClown {
-    0% {opacity: 1;}
-    24% {opacity: 1;}
-    25% {opacity: 0;}
-    49% {left: 50px; opacity: 0;}
-    50% {opacity: 1;}
-    74% {opacity: 1;}
-    75% {opacity: 0;}
-    100% {right: 50px; opacity: 0;}
+#outcome {
+  background-color: var(--outcome-background);
+  width: 60%;
+  height: 2em;
+  border: 2px solid var(--outcome-border);
+  border-radius: 20px;
+  line-height: 2em;
+  text-align: center;
+  margin: 0;
+  margin-bottom: -5%;
 }

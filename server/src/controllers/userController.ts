@@ -8,7 +8,7 @@ export const UserController = {
   },
 
   async getUserById(req: Request, res: Response) {
-    const id: number = +req.params.Id;
+    const id: number = +req.params.id;
     const result = await UserRepository.getUserById(id);
     res.json(result);
   },
@@ -19,14 +19,14 @@ export const UserController = {
   },
 
   async updateUser(req: Request, res: Response) {
-    const id: number = +req.params.Id;
+    const id: number = +req.params.id;
     const updatedUser = req.body;
     const result = await UserRepository.updateUser(id, updatedUser);
     res.json(result);
   },
 
   async deleteUser(req: Request, res: Response) {
-    const id: number = +req.params.Id;
+    const id: number = +req.params.id;
     const result = await UserRepository.deleteUser(id);
     res.json(result);
   },
