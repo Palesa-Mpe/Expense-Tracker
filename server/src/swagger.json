@@ -19,7 +19,7 @@
     }
   ],
   "paths": {
-    "/users": {
+    "/api/users": {
       "get": {
         "tags": [
           "users"
@@ -80,7 +80,7 @@
         }
       }
     },
-    "/users/{id}": {
+    "/api/users/{id}": {
       "get": {
         "tags": [
           "users"
@@ -251,7 +251,7 @@
         }
       }
     },
-    "/categories": {
+    "/api/categories": {
       "get": {
         "tags": [
           "categories"
@@ -309,7 +309,7 @@
         }
       }
     },
-    "/categories/{id}": {
+    "/api/categories/{id}": {
       "get": {
         "tags": [
           "categories"
