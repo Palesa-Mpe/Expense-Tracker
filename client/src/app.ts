@@ -1,15 +1,20 @@
 import express, {Express, Request, Response} from "express";
-import path from "path";
+import cors from "cors";
 import {ResourceConfig} from './config';
 
 const resourceConfig: ResourceConfig = ResourceConfig;
 
 const app : Express = express();
 const port: string | number = resourceConfig.port;
+const api: string  = resourceConfig.api;
+
+app.use(cors({
+  origin: api,
+}));
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
-app.use(express.static("./src/public", { extensions: ["css", "png", "svg", 'gif'] }));
+app.use(express.static("./src/public", { extensions: ["css", "png", "svg", "gif", "jpg", "jpeg",] }));
 app.use(express.static("./src/views", { extensions: ["html"] }));
 app.use(express.static("./dist/public", { extensions: ["js"] }));
 
@@ -18,7 +23,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 app.all('*', (req: Request, res: Response) => {
-  res.redirect('/addExpense');
+  res.redirect('/404');
 });
 
 
