@@ -1,8 +1,9 @@
 export interface Expense {
-    id?: number;
-    ItemName: string;
-    Desc: string;
-    Amount:number;
-    CategoryId: number;
-    UserId?: number;
-  }
+  expenseid: number;
+  amount: string;
+  categoryid: number;
+  date: Date;
+  description: string;
+  name: string;
+  userid: number;
+};
