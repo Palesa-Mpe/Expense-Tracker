@@ -15,12 +15,12 @@ exports.UserRepository = {
         return result;
     },
     async createUser(newUser) {
-        const result = await db_1.cassandraDatabase.execute(users_1.createUser, [newUser.email, newUser.username]);
+        const result = await db_1.cassandraDatabase.execute(users_1.createUser, [newUser.userid, newUser.email, newUser.username]);
         console.log(result);
         return result;
     },
     async updateUser(id, updatedUser) {
-        const result = await db_1.cassandraDatabase.execute(users_1.updateUser, [id, updatedUser.email, updatedUser.username]);
+        const result = await db_1.cassandraDatabase.execute(users_1.updateUser, [updatedUser.email, updatedUser.username, id]);
         console.log(result);
         return result;
     },

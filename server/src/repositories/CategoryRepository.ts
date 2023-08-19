@@ -16,13 +16,13 @@ export const CategoryRepository = {
     },
 
     async createCategory(newCategory: Category) {
-        const result = await cassandraDatabase.execute(createCategory, [newCategory.name]);
+        const result = await cassandraDatabase.execute(createCategory, [newCategory.categoryid, newCategory.name]);
         console.log(result);
         return result;
     },
 
     async updateCategory(id: Number, updatedCategory: Category) {
-        const result = await cassandraDatabase.execute(updateCategory, [id, updatedCategory.name]);
+        const result = await cassandraDatabase.execute(updateCategory, [updatedCategory.name, id]);
         console.log(result);
         return result;
     },

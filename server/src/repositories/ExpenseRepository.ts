@@ -16,13 +16,13 @@ export const ExpenseRepository = {
     },
 
     async createExpense(newExpense: Expense) {
-        const result = await cassandraDatabase.execute(createExpense, [newExpense.amount, newExpense.categoryid, newExpense.date, newExpense.description, newExpense.name, newExpense.userid]);
+        const result = await cassandraDatabase.execute(createExpense, [newExpense.expenseid, newExpense.amount, newExpense.categoryid, newExpense.date, newExpense.description, newExpense.name, newExpense.userid]);
         console.log(result);
         return result;
     },
 
     async updateExpense(id: Number, updatedExpense: Expense) {
-        const result = await cassandraDatabase.execute(updateExpense, [id, updatedExpense.amount, updatedExpense.categoryid, updatedExpense.description, updatedExpense.name]);
+        const result = await cassandraDatabase.execute(updateExpense, [updatedExpense.amount, updatedExpense.categoryid, updatedExpense.description, updatedExpense.name, id]);
         console.log(result);
         return result;
     },
