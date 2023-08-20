@@ -1,8 +1,8 @@
 export const getAllExpenses: string = 'SELECT * FROM expenses';
 
-export const getAllUserExpenses: string = 'SELECT * FROM expenses WHERE userid = ?';
+export const getAllUserExpenses: string = 'SELECT * FROM expenses WHERE userid = ? ALLOW FILTERING';
 
-export const getAllUserExpensesByCategory: string = 'SELECT * FROM expenses WHERE userid = ? AND categoryid = ?';
+export const getAllUserExpensesByCategory: string = 'SELECT * FROM expenses WHERE userid = ? AND categoryid = ? ALLOW FILTERING';
 
 export const getExpenseById: string = 'SELECT * FROM expenses WHERE expenseid = ?';
 
@@ -12,9 +12,9 @@ export const updateExpense: string = 'UPDATE expenses SET amount = ?, categoryid
 
 export const deleteExpense: string = 'DELETE FROM expenses WHERE expenseid = ?';
 
-export const getAvgAmountByCategory: string = 'SELECT AVG(amount) FROM expenses WHERE userid = ? AND categoryid = ?';
+export const getAvgAmountByCategory: string = 'SELECT AVG(amount) FROM expenses WHERE userid = ? AND categoryid = ? ALLOW FILTERING';
 
-export const getSumAmountByCategory: string = 'SELECT SUM(amount) FROM expenses WHERE userid = ? AND categoryid = ?';
+export const getSumAmountByCategory: string = 'SELECT SUM(amount) FROM expenses WHERE userid = ? AND categoryid = ? ALLOW FILTERING';
 
 export const getAvgAmount: string = 'SELECT categoryid, AVG(amount) FROM expenses WHERE userid = ? GROUP BY categoryid';
 

@@ -8,7 +8,7 @@ export const ExpenseController = {
     },
 
     async getAllUserExpenses(req: Request, res: Response) {
-        const id: Number = Number(req.params.id);
+        const id: string = req.params.id;
         
         const result = await ExpenseRepository.getAllUserExpenses(id);
         if (result) {
@@ -19,7 +19,7 @@ export const ExpenseController = {
     },
 
     async getAllUserExpensesByCategory(req: Request, res: Response) {
-        const userid: Number = Number(req.params.id);
+        const userid: string = req.params.id;
         const categoryid: Number = Number(req.params.categoryid);
         
         const result = await ExpenseRepository.getAllUserExpensesByCategory(userid, categoryid);
@@ -43,36 +43,42 @@ export const ExpenseController = {
 
     async createExpense(req: Request, res: Response) {
         const result = await ExpenseRepository.createExpense(req.body);
-        if (result) {
-            res.status(201).json({success: true});
-        } else {
-            res.status(400).json({success: false, message:"Error"});
-        }
+        res.json(result);
+        //console.log('create,',result)
+        // if (result) {
+        //     res.status(201).json({success: true});
+        // } else {
+        //     res.status(400).json({success: false, message:"Error"});
+        // }
     },
 
     async updateExpense(req: Request, res: Response) {
         const id: Number = Number(req.params.id);
         const updatedExpense = req.body;
         const result = await ExpenseRepository.updateExpense(id, updatedExpense);
-        if (result) {
-            res.status(204).json({success: true});
-        } else {
-            res.status(404).json({success: false, message:"Expense not found"});
-        }
+        res.json(result);
+        // console.log('update,',result)
+        // if (result) {
+        //     res.status(204).json({success: true});
+        // } else {
+        //     res.status(404).json({success: false, message:"Expense not found"});
+        // }
     },
 
     async deleteExpense(req: Request, res: Response) {
         const id: Number = Number(req.params.id);
         const result = await ExpenseRepository.deleteExpense(id);
-        if (result) {
-            res.status(200).json({success: true});
-        } else {
-            res.status(404).json({success: false, message:"Expense not found"});
-        }
+        res.json(result);
+        // console.log('delete,',result)
+        // if (result) {
+        //     res.status(200).json({success: true});
+        // } else {
+        //     res.status(404).json({success: false, message:"Expense not found"});
+        // }
     },
     
     async getAvgAmount(req: Request, res: Response) {
-        const id: Number = Number(req.params.id);
+        const id: string = req.params.id;
 
         const result = await ExpenseRepository.getAvgAmount(id);
         if (result) {
@@ -83,7 +89,7 @@ export const ExpenseController = {
     },
 
     async getSumAmount(req: Request, res: Response) {
-        const id: Number = Number(req.params.id);
+        const id: string = req.params.id;
         
         const result = await ExpenseRepository.getSumAmount(id);
         if (result) {
@@ -94,7 +100,7 @@ export const ExpenseController = {
     },
 
     async getAvgAmountByCategory(req: Request, res: Response) {
-        const userid: Number = Number(req.params.id);
+        const userid: string = req.params.id;
         const categoryid: Number = Number(req.params.categoryid);
         
         const result = await ExpenseRepository.getAvgAmountByCategory(userid, categoryid);
@@ -106,7 +112,7 @@ export const ExpenseController = {
     },
     
     async getSumAmountByCategory(req: Request, res: Response) {
-        const userid: Number = Number(req.params.id);
+        const userid: string = req.params.id;
         const categoryid: Number = Number(req.params.categoryid);
         
         const result = await ExpenseRepository.getSumAmountByCategory(userid, categoryid);

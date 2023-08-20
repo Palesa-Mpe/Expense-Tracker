@@ -20,11 +20,12 @@ export const UserController = {
 
   async createUser(req: Request, res: Response) {
     const result = await UserRepository.createUser(req.body);
-    if (result) {
-      res.status(201).json({success: true});
-    } else {
-      res.status(400).json({success: false, message:"Error"});
-    }
+    res.json(result);
+    // if (result) {
+    //   res.status(201).json({success: true});
+    // } else {
+    //   res.status(400).json({success: false, message:"Error"});
+    // }
   },
 
   async updateUser(req: Request, res: Response) {
@@ -32,20 +33,22 @@ export const UserController = {
     const updatedUser = req.body;
     
     const result = await UserRepository.updateUser(id, req.body);
-    if (result) {
-      res.status(204).json({success: true});
-    } else {
-      res.status(404).json({success: false, message:"User not found"});
-    }
+    res.json(result);
+    // if (result) {
+    //   res.status(204).json({success: true});
+    // } else {
+    //   res.status(404).json({success: false, message:"User not found"});
+    // }
   },
 
   async deleteUser(req: Request, res: Response) {
     const id: string = req.params.id;
     const result = await UserRepository.deleteUser(id);
-    if (result) {
-      res.status(200).json({success: true});
-    } else {
-      res.status(404).json({success: false, message:"User not found"});
-    }
+    res.json(result);
+    // if (result) {
+    //   res.status(200).json({success: true});
+    // } else {
+    //   res.status(404).json({success: false, message:"User not found"});
+    // }
   },
 };
