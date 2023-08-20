@@ -8,4 +8,4 @@ node_modules
 
 # Ignore in the client directory
 /client/dist
-/server/.env
+/client/.env
