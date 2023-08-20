@@ -5,26 +5,46 @@ const UserRepository_1 = require("../repositories/UserRepository");
 exports.UserController = {
     async getAllUsers(req, res) {
         const result = await UserRepository_1.UserRepository.getAllUsers();
-        res.json(result);
+        res.status(200).json(result);
     },
     async getUserById(req, res) {
         const id = req.params.id;
         const result = await UserRepository_1.UserRepository.getUserById(id);
-        res.json(result);
+        if (result) {
+            res.status(200).json({ success: true, user: result });
+        }
+        else {
+            res.status(404).json({ success: false, message: "User not found", user: result });
+        }
     },
     async createUser(req, res) {
         const result = await UserRepository_1.UserRepository.createUser(req.body);
-        res.status(201).json(result);
+        if (result) {
+            res.status(201).json({ success: true });
+        }
+        else {
+            res.status(400).json({ success: false, message: "Error" });
+        }
     },
     async updateUser(req, res) {
         const id = req.params.id;
         const updatedUser = req.body;
         const result = await UserRepository_1.UserRepository.updateUser(id, req.body);
-        res.json(result);
+        if (result) {
+            res.status(204).json({ success: true });
+        }
+        else {
+            res.status(404).json({ success: false, message: "User not found" });
+        }
     },
     async deleteUser(req, res) {
         const id = req.params.id;
         const result = await UserRepository_1.UserRepository.deleteUser(id);
-        res.json(result);
+        if (result) {
+            res.status(200).json({ success: true });
+        }
+        else {
+            res.status(404).json({ success: false, message: "User not found" });
+        }
     },
 };

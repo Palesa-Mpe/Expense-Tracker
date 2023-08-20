@@ -1,15 +1,17 @@
 import { Client, types as CassandraTypes } from 'cassandra-driver';
+import { ResourceConfig } from '../../config';
+
+const resourceConfig: ResourceConfig = ResourceConfig;
 
 class CassandraDatabase {
   private static instance: CassandraDatabase;
   private client: Client;
 
   private constructor() {
-    // Initialize Cassandra client here
     this.client = new Client({
-      contactPoints: ['localhost'], // Update with your Cassandra contact points
-      localDataCenter: 'datacenter1', // Update with your data center name
-      keyspace: 'expense_tracker', // Update with your keyspace name
+      contactPoints: resourceConfig.dbConfig.contactPoints,
+      localDataCenter: resourceConfig.dbConfig.localDataCenter,
+      keyspace: resourceConfig.dbConfig.keyspace,
     });
  }
 

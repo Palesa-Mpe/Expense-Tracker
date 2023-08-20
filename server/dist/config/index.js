@@ -10,9 +10,8 @@ exports.ResourceConfig = {
     port: process.env.PORT || 4040,
     client: process.env.CLIENT || '',
     dbConfig: {
-        user: process.env.DB_USER || '',
-        password: process.env.DB_PASSWORD || '',
-        database: process.env.DB_NAME || '',
-        server: process.env.DB_SERVER || '',
+        contactPoints: [process.env.CONTACT_POINTS || 'localhost'],
+        localDataCenter: process.env.DATA_CENTER || 'datacenter1',
+        keyspace: process.env.KEYSPACE || 'expense_tracker',
     },
 };
