@@ -3,12 +3,6 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Pennywise</title>
-     <!-- AWS SDK for JavaScript -->
-     <!-- <script src="https://sdk.amazonaws.com/js/aws-sdk-2.933.0.min.js"></script> -->
-    
-     <!-- Amazon Cognito Identity SDK -->
-     <!-- <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.1/dist/amazon-cognito-identity.min.js"></script> -->
-     
     <link rel="stylesheet" href="/css/login.css" />
     <link
       href="https://fonts.googleapis.com/css?family=Inter"
@@ -35,11 +29,13 @@
             required
             type="text"
             placeholder="username/e-mail"
+            id="username"
           />
           <input
             required
             type="password"
             placeholder="password"
+            id="password"
           />
           <a href="" class="forgot-password">Forgot password?</a>
           <p id="error-inline"></p>
