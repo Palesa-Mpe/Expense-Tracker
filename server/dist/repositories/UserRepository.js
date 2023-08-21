@@ -1,45 +1,32 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserRepository = void 0;
-const users = [
-    { id: 1, name: 'John' },
-    { id: 2, name: 'Jane' },
-];
+const db_1 = require("../database/db");
+const users_1 = require("../database/queries/users");
 exports.UserRepository = {
-    getAllUsers() {
-        return users;
+    async getAllUsers() {
+        const result = await db_1.cassandraDatabase.execute(users_1.getAllUsers);
+        console.log(result);
+        return result;
     },
-    getUserById(id) {
-        const user = users.find(user => user.id === id);
-        if (user) {
-            return user;
-        }
-        else {
-            return { success: false, message: 'User not found' };
-        }
+    async getUserById(id) {
+        const result = await db_1.cassandraDatabase.execute(users_1.getUserById, [id]);
+        console.log(result);
+        return result;
     },
-    createUser(newUser) {
-        users.push(newUser);
-        return { success: true };
+    async createUser(newUser) {
+        const result = await db_1.cassandraDatabase.execute(users_1.createUser, [newUser.userid, newUser.email, newUser.username]);
+        console.log(result);
+        return result;
     },
-    updateUser(id, updatedUser) {
-        const index = users.findIndex(user => user.id === id);
-        if (index !== -1) {
-            users[index] = updatedUser;
-            return { success: true };
-        }
-        else {
-            return { success: false, message: 'User not found' };
-        }
+    async updateUser(id, updatedUser) {
+        const result = await db_1.cassandraDatabase.execute(users_1.updateUser, [updatedUser.email, updatedUser.username, id]);
+        console.log(result);
+        return result;
     },
-    deleteUser(id) {
-        const index = users.findIndex(user => user.id === id);
-        if (index !== -1) {
-            users.splice(index, 1);
-            return { success: true };
-        }
-        else {
-            return { success: false, message: 'User not found' };
-        }
+    async deleteUser(id) {
+        const result = await db_1.cassandraDatabase.execute(users_1.deleteUser, [id]);
+        console.log(result);
+        return result;
     },
 };

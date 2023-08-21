@@ -1,46 +1,35 @@
 import { User } from '../models/User';
-
-const users: User[] = [
-  { id: 1, name: 'John' },
-  { id: 2, name: 'Jane' },
-];
+import { cassandraDatabase } from '../database/db';
+import { getAllUsers, getUserById, createUser, updateUser, deleteUser } from '../database/queries/users';
 
 export const UserRepository = {
-  getAllUsers(): User[] {
-    return users;
+  async getAllUsers() {
+    const result = await cassandraDatabase.execute(getAllUsers);
+    console.log(result);
+    return result;
   },
 
-  getUserById(id: number): User | { success: boolean; message: string } {
-    const user = users.find(user => user.id === id);
-    if (user) {
-      return user;
-    } else {
-      return { success: false, message: 'User not found' };
-    }
+  async getUserById(id: string) {
+    const result = await cassandraDatabase.execute(getUserById, [id]);
+    console.log(result);
+    return result;
   },
 
-  createUser(newUser: User): { success: boolean } {
-    users.push(newUser);
-    return { success: true };
+  async createUser(newUser: User) {
+    const result = await cassandraDatabase.execute(createUser, [newUser.userid, newUser.email, newUser.username]);
+    console.log(result);
+    return result;
   },
 
-  updateUser(id: number, updatedUser: User): { success: boolean; message?: string } {
-    const index = users.findIndex(user => user.id === id);
-    if (index !== -1) {
-      users[index] = updatedUser;
-      return { success: true };
-    } else {
-      return { success: false, message: 'User not found' };
-    }
+  async updateUser(id: string, updatedUser: User) {
+    const result = await cassandraDatabase.execute(updateUser, [updatedUser.email, updatedUser.username, id]);
+    console.log(result);
+    return result;
   },
 
-  deleteUser(id: number): { success: boolean; message?: string } {
-    const index = users.findIndex(user => user.id === id);
-    if (index !== -1) {
-      users.splice(index, 1);
-      return { success: true };
-    } else {
-      return { success: false, message: 'User not found' };
-    }
+  async deleteUser(id: string) {
+    const result = await cassandraDatabase.execute(deleteUser, [id]);
+    console.log(result);
+    return result;
   },
 };
