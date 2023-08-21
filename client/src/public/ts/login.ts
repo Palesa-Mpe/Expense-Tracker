@@ -1,70 +1,47 @@
+// import {ResourceConfig} from '../../config';
+const usernameTag = document.getElementById("username") as HTMLInputElement;
+const passwordTag = document.getElementById("password") as HTMLInputElement;
+const loginForm = document.getElementById("login-form") as HTMLFormElement;
+const inlineError = document.getElementById("inline-error") as HTMLParagraphElement;
 
-console.log("daad");
-const poolData = {
-    UserPoolId: 'eu-west-1_BZAu5yKxc',
-    ClientId: 'l9lu2cspu2ago5vmv9b05l3ub',
+var poolData = {
+  UserPoolId: "",
+  ClientId: "",
 };
 
-const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
-console.log("daad",userPool)
-//     function loginUser(event) {
-//     event.preventDefault();
-
-//     const username = document.getElementById('username').value;
-//     const password = document.getElementById('password').value;
-//     const inlineError = document.getElementById('error-inline');
-
-//     const authenticationData = {
-//         Username: username,
-//         Password: password,
-//     };
+const client = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+function loginUser(e: Event) {
+  e.preventDefault();
+  let username = usernameTag.value;
+  let password = passwordTag.value;
 
 
-    
-//     const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(authenticationData);
-//     const userData = {
-//         Username: username,
-//         Pool: userPool,
-//     };
+  const userData = {
+    Username: username,
+    Pool: client,
+  };
+  const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
 
-//     showLoadingAnimation();
-//     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
+  const authenticationData = {
+    Username: username,
+    Password: password,
+  };
+  const authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails(
+    authenticationData
+  );
 
-//     cognitoUser.authenticateUser(authenticationDetails, {
-//         onSuccess: function (session) {
-//         hideLoadingAnimation()
-//         localStorage.setItem('jwt',session.getAccessToken().getJwtToken());
-//         navToHome();
-//         // nav just now 
-//         },
-//         onFailure: function (err) {
-//         hideLoadingAnimation()
-//         inlineError.innerText=err.message;
-//         console.error('Error logging in:', err.message || JSON.stringify(err));
-//         },
-//     });
-// }
+  cognitoUser.authenticateUser(authenticationDetails, {
+    onSuccess: async function (session: any) {
+      console.log(session.getAccessToken().getJwtToken());
 
-// function authorizeUser(event){
-//     event.preventDefault();
-//     const username = document.getElementById('username').value;
-//     const authCode = document.getElementById('auth-code').value;
+    },
+    onFailure: function (err: any) {
+      console.error("Error logging in:", err.message || JSON.stringify(err));
+      inlineError && (inlineError.textContent = err.message || JSON.stringify(err));
+    },
 
-//     const userData = {
-//         Username: username,
-//         Pool: userPool,
-//     };
-      
-//     const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-//     showLoadingAnimation();
-//     cognitoUser.confirmRegistration(authCode, true, (err, result) => {
-//         if (err) {
-//           hideLoadingAnimation();
-//           console.log('Confirmation error:', err.message || JSON.stringify(err));
-//         } else {
-//             hideLoadingAnimation();
-//             navToHome();
-//         }
-//     });
+  });
+}
 
-// }
+
+loginForm.addEventListener("submit", loginUser);
