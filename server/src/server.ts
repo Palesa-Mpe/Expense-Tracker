@@ -18,14 +18,7 @@ server.use(cors({
 
 server.use(express.urlencoded({extended: true}))
 server.use(express.json());
-server.use(express.static('public'));
-server.use(express.static(path.join(__dirname, '../../client/dist/public'), { extensions: ["css", "png", "svg", "gif", "jpg", "jpeg",] }));
-server.use(express.static(path.join(__dirname, '../../client/dist/public/views'), { extensions: ["html"] }));
-server.use(express.static(path.join(__dirname, '../../client/dist/'), { extensions: ["js"] }));
-
-server.get('/login', function (req, res) {
-  res.sendFile(path.join(__dirname, '../../client/dist/public/views/login/index.html'));
-})
+// server.use(express.static('public'));
 
 
 // API routes
@@ -34,8 +27,18 @@ server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 server.get('/api/', function (req, res) {
   res.redirect('/api-docs');
-})
+});
 
+// Serve frontend files
+server.use(express.static(path.join(__dirname, '../../client/dist/public'), { extensions: ["css", "png", "svg", "gif", "jpg", "jpeg",] }));
+server.use(express.static(path.join(__dirname, '../../client/dist/public/views'), { extensions: ["html"] }));
+server.use(express.static(path.join(__dirname, '../../client/dist/'), { extensions: ["js"] }));
+
+server.get('/', function (req, res) {
+  res.redirect('/login');
+});
+
+// Catch-all route for frontend routing
 server.all('*', (req: Request, res: Response) => {
   res.redirect('/404');
 });
