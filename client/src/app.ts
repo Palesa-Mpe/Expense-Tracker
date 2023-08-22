@@ -1,5 +1,4 @@
 import express, {Express, Request, Response} from "express";
-import cors from "cors";
 import {ResourceConfig} from './config';
 
 const resourceConfig: ResourceConfig = ResourceConfig;
@@ -10,8 +9,8 @@ const port: string | number = resourceConfig.port;
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
 app.use(express.static("./src/public", { extensions: ["css", "png", "svg", "gif", "jpg", "jpeg",] }));
-app.use(express.static("./src/views", { extensions: ["html"] }));
-app.use(express.static("./dist/public", { extensions: ["js"] }));
+app.use(express.static("./src/public/views", { extensions: ["html"] }));
+app.use(express.static("./dist/", { extensions: ["js"] }));
 
 app.get('/', (req: Request, res: Response) => {
   res.redirect('/login');
