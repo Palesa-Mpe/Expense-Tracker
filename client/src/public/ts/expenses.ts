@@ -29,7 +29,7 @@ input.addEventListener('blur', () => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const url = 'http://localhost:4040/api/category';
+  // const url = '/api/category';
 
   // fetch(url)
   // .then(response => response.json())
@@ -59,7 +59,8 @@ form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(form);
-  const url = 'http://localhost:4040/api/expenses';
+  const url = '/api/expenses';
+  // http://localhost:4040/api/expenses
 
   try {
     fetch(url, {

@@ -6,11 +6,6 @@ const resourceConfig: ResourceConfig = ResourceConfig;
 
 const app : Express = express();
 const port: string | number = resourceConfig.port;
-const api: string  = resourceConfig.api;
-
-app.use(cors({
-  origin: api,
-}));
 
 app.use(express.urlencoded({extended: true}))
 app.use(express.json());
