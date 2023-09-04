@@ -1,17 +1,29 @@
-import { Client, types as CassandraTypes } from 'cassandra-driver';
+import { Client, auth , types } from 'cassandra-driver';
+import fs from 'fs';
+import path from 'path';
 import { ResourceConfig } from '../../config';
 
-const resourceConfig: ResourceConfig = ResourceConfig;
 
 class CassandraDatabase {
   private static instance: CassandraDatabase;
   private client: Client;
 
   private constructor() {
+    const authProvider = new auth.PlainTextAuthProvider(ResourceConfig.dbConfig.username, ResourceConfig.dbConfig.password);
+    console.log(__dirname);
+    
+    const sslOptions1  = {
+        ca: [fs.readFileSync(path.resolve(__dirname, '../../../sf-class2-root.crt'), 'utf-8')],
+        host: ResourceConfig.dbConfig.contactPoints[0],
+        rejectUnauthorized: true,
+    };
+
     this.client = new Client({
-      contactPoints: resourceConfig.dbConfig.contactPoints,
-      localDataCenter: resourceConfig.dbConfig.localDataCenter,
-      keyspace: resourceConfig.dbConfig.keyspace,
+      contactPoints: ResourceConfig.dbConfig.contactPoints,
+      localDataCenter: ResourceConfig.dbConfig.localDataCenter,
+      authProvider: authProvider,
+      sslOptions: sslOptions1,
+      protocolOptions: { port: 9142 }
     });
  }
 
