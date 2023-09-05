@@ -1,35 +1,46 @@
 import { Category } from "../models/Category";
 import { cassandraDatabase } from "../database/db";
-import { getAllCategories, getCategoryById, createCategory, updateCategory, deleteCategory } from "../database/queries/categories";
+import { v4 as uuidv4 } from 'uuid';
+
+import { getAllCategories, getCategoryById, getCategoryByName, createCategory, updateCategory, deleteCategory } from "../database/queries/categories";
+import { UUID } from "crypto";
 
 export const CategoryRepository = {
     async getAllCategories() {
         const result = await cassandraDatabase.execute(getAllCategories);
-        console.log(result);
+        
         return result;
     },
 
-    async getCategoryById(id: Number) {
+    async getCategoryById(id: string) {
         const result = await cassandraDatabase.execute(getCategoryById, [id]);
-        console.log(result);
+        
+        return result;
+    },
+
+    async getCategoryByName(name: string){
+        const result = await cassandraDatabase.execute(getCategoryByName, [name]);
+        
         return result;
     },
 
     async createCategory(newCategory: Category) {
-        const result = await cassandraDatabase.execute(createCategory, [newCategory.categoryid, newCategory.name]);
-        console.log(result);
+        const id = uuidv4();
+        
+        const result = await cassandraDatabase.execute(createCategory, [id, newCategory.name]);
+        
         return result;
     },
 
-    async updateCategory(id: Number, updatedCategory: Category) {
+    async updateCategory(id: any, updatedCategory: Category) {
         const result = await cassandraDatabase.execute(updateCategory, [updatedCategory.name, id]);
-        console.log(result);
+        
         return result;
     },
 
-    async deleteCategory(id: Number) {
+    async deleteCategory(id: string) {
         const result = await cassandraDatabase.execute(deleteCategory, [id]);
-        console.log(result);
+        
         return result;
     },
 };

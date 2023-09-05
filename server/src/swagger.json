@@ -236,7 +236,7 @@
                   },
                   {
                     "categoryid": 2,
-                    "name": "Uitilities"
+                    "name": "Utilities"
                   }
                 ]
               }
@@ -288,7 +288,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -332,7 +333,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -384,7 +386,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -406,6 +409,52 @@
                 "example": {
                   "success": false,
                   "message": "Category not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/categories/search/{name}": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Get category by Name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "category": {
+                    "categoryid": 1,
+                    "name": "Entertainment"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Category not found",
+                  "category": null
                 }
               }
             }
