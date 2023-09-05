@@ -4,17 +4,19 @@ import {UserRepository} from '../repositories/UserRepository';
 export const UserController = {
   async getAllUsers(req: Request, res: Response) {
     const result = await UserRepository.getAllUsers();
-    res.status(200).json(result);
+    if (result) {
+      res.status(200).json(result.rows);
+    }
   },
 
   async getUserById(req: Request, res: Response) {
     const id: string = req.params.id;
     
     const result = await UserRepository.getUserById(id);
-    if (result) {
-      res.status(200).json({success: true, user: result});
+    if (result?.rowLength != null && result.rowLength > 0) {
+      res.status(200).json({success: true, user: result.rows});
     } else {
-      res.status(404).json({success: false, message:"User not found", user: result});
+      res.status(404).json({success: false, message:"User not found", user: null});
     }
   },
 
@@ -31,21 +33,32 @@ export const UserController = {
     const id: string = req.params.id;
     const updatedUser = req.body;
     
-    const result = await UserRepository.updateUser(id, req.body);
-    if (result) {
-      res.status(204).json({success: true});
+    const checkExist = await UserRepository.getUserById(id);
+    if (checkExist?.rowLength != null && checkExist.rowLength > 0) {
+      const result = await UserRepository.updateUser(id, updatedUser);
+      if (result) {
+        res.status(200).json({success: true});
+      } else {
+        res.status(404).json({success: false, message:"Error"});
+      }
     } else {
-      res.status(404).json({success: false, message:"User not found"});
+        res.status(404).json({success: false, message:"User not found"});
     }
   },
 
   async deleteUser(req: Request, res: Response) {
     const id: string = req.params.id;
-    const result = await UserRepository.deleteUser(id);
-    if (result) {
-      res.status(200).json({success: true});
+
+    const checkExist = await UserRepository.getUserById(id);
+    if (checkExist?.rowLength != null && checkExist.rowLength > 0) {
+      const result = await UserRepository.deleteUser(id);
+      if (result) {
+        res.status(200).json({success: true});
+      } else {
+        res.status(404).json({success: false, message:"Error"});
+      }
     } else {
-      res.status(404).json({success: false, message:"User not found"});
+        res.status(404).json({success: false, message:"User not found"});
     }
   },
 };

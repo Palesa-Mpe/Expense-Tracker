@@ -11,19 +11,19 @@ export const ExpenseRepository = {
         return result;
     },
     
-    async getAllUserExpenses(id: Number) {
+    async getAllUserExpenses(id: string) {
         const result = await cassandraDatabase.execute(Queries.getAllUserExpenses, [id]);
         
         return result;
     },
 
-    async getAllUserExpensesByCategory(userid: Number, categoryid: Number) {
+    async getAllUserExpensesByCategory(userid: string, categoryid: string) {
         const result = await cassandraDatabase.execute(Queries.getAllUserExpensesByCategory, [userid, categoryid]);
         
         return result;
     },
 
-    async getExpenseById(id: Number) {
+    async getExpenseById(id: string) {
         const result = await cassandraDatabase.execute(Queries.getExpenseById, [id]);
         
         return result;
@@ -37,37 +37,37 @@ export const ExpenseRepository = {
         return result;
     },
 
-    async updateExpense(id: Number, updatedExpense: Expense) {
+    async updateExpense(id: string, updatedExpense: Expense) {
         const result = await cassandraDatabase.execute(Queries.updateExpense, [updatedExpense.amount, updatedExpense.categoryid, updatedExpense.description, updatedExpense.name, id]);
         
         return result;
     },
 
-    async deleteExpense(id: Number) {
+    async deleteExpense(id: string) {
         const result = await cassandraDatabase.execute(Queries.deleteExpense, [id]);
         
         return result;
     },
     
-    async getAvgAmount(id: Number) {
+    async getAvgAmount(id: string) {
         const result = await cassandraDatabase.execute(Queries.getAvgAmount, [id]);
         
         return result;
     },
 
-    async getSumAmount(id: Number) {
+    async getSumAmount(id: string) {
         const result = await cassandraDatabase.execute(Queries.getSumAmount, [id]);
         
         return result;
     },
 
-    async getAvgAmountByCategory(userid: Number, categoryid: Number) {
+    async getAvgAmountByCategory(userid: string, categoryid: string) {
         const result = await cassandraDatabase.execute(Queries.getAvgAmountByCategory, [userid, categoryid]);
         
         return result;
     },
 
-    async getSumAmountByCategory(userid: Number, categoryid: Number) {
+    async getSumAmountByCategory(userid: string, categoryid: string) {
         const result = await cassandraDatabase.execute(Queries.getSumAmountByCategory, [userid, categoryid]);
         
         return result;
