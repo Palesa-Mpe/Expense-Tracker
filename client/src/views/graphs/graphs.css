@@ -3,7 +3,31 @@
     padding: 0;
 }
 
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #FFDB58;
+    padding: 10px;
+}
+
+.title{
+    text-align: center;
+}
+
 #myChart{
-    width:100%;
-    height: 100vh;
+    padding: 20px;
+    width: 100%;
+    height: 85vh;
+}
+
+.logOut{
+    left: 0;
+    padding-top: 5px;
+    text-align: end;
+}
+
+.logOut img{
+    width: auto;
+    height: 25px;
 }

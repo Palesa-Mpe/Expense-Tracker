@@ -42,10 +42,34 @@ new Chart("myChart", {
         display: false
       },
       title: {
-        display: true,
+        display: false,
         text: 'This is my bar graph',
         font: {
           size: 40
+        }
+      }
+    },
+    responsive: true, // Disable automatic resizing
+    maintainAspectRatio: false, // Allow aspect ratio to be adjusted
+    scales: {
+      x: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'X-Axis Label',
+          font: {
+            size: 25
+          }
+        }
+      },
+      y: {
+        beginAtZero: true,
+        title: {
+          display: true,
+          text: 'Y-Axis Label',
+          font: {
+            size: 25
+          }
         }
       }
     }
