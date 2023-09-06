@@ -31,3 +31,12 @@ header{
     width: auto;
     height: 25px;
 }
+
+.logo{
+    width: 10px;
+    height: auto;
+}
+
+.logo img{
+    width: auto;
+}
