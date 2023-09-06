@@ -92,7 +92,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -108,17 +108,6 @@
                     "email": "user1@example.com",
                     "username": "user1"
                   }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "user": null
                 }
               }
             }
@@ -147,7 +136,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -176,17 +165,6 @@
               }
             }
           },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "message": "Invalid ID supplied."
-                }
-              }
-            }
-          },
           "404": {
             "description": "User not found",
             "content": {
@@ -211,7 +189,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -222,17 +200,6 @@
               "application/json": {
                 "example": {
                   "success": true
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "message": "Invalid ID supplied."
                 }
               }
             }
@@ -264,12 +231,12 @@
               "application/json": {
                 "example": [
                   {
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "name": "Entertainment"
                   },
                   {
-                    "categoryid": 2,
-                    "name": "Uitilities"
+                    "categoryid": "ee921003-948a-462d-ae7a-dff0a76cac4c",
+                    "name": "Utilities"
                   }
                 ]
               }
@@ -321,7 +288,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -333,21 +301,9 @@
                 "example": {
                   "success": true,
                   "category": {
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "name": "Entertainment"
                   }
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "message": "Invalid ID supplied",
-                  "category": null
                 }
               }
             }
@@ -377,12 +333,13 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
         "requestBody": {
-          "description": "Updated user object",
+          "description": "Updated category object",
           "content": {
             "application/json": {
               "schema": {
@@ -396,22 +353,11 @@
         },
         "responses": {
           "200": {
-            "description": "User updated successfully",
+            "description": "Category updated successfully",
             "content": {
               "application/json": {
                 "example": {
                   "success": true
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "message": "Invalid ID supplied."
                 }
               }
             }
@@ -440,7 +386,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -451,17 +398,6 @@
               "application/json": {
                 "example": {
                   "success": true
-                }
-              }
-            }
-          },
-          "400": {
-            "description": "Invalid ID supplied",
-            "content": {
-              "application/json": {
-                "example": {
-                  "success": false,
-                  "message": "Invalid ID supplied."
                 }
               }
             }
@@ -479,6 +415,614 @@
           }
         }
       }
+    },
+    "/categories/search/{name}": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Get category by Name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "category": {
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                    "name": "Entertainment"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Category not found",
+                  "category": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get all expenses",
+        "responses": {
+          "200": {
+            "description": "List of expenses",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
+                    "name": "Milk",
+                    "amount": 15,
+                    "description": "Dairy Product",
+                    "date": "2022-05-01 19:17:25",
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                    "userid": 1
+                  },
+                  {
+                    "expenseid": "a5a98b01-f3f1-4fdd-a3f2-1dc11b475641",
+                    "name": "Milk",
+                    "amount": 20,
+                    "description": "Dairy Product",
+                    "date": "2023-08-15 05:12:32",
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                    "userid": 3
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Create a new expense",
+        "requestBody": {
+          "description": "Expense object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Expense"
+              },
+              "example": {
+                "name": "Milk",
+                "amount": 15,
+                "description": "Dairy Product",
+                "date": "2022-05-01 19:17:25",
+                "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                "userid": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Expense created successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/{id}": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get expense by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expense details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "expense": {
+                    "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
+                    "name": "Milk",
+                    "amount": 15,
+                    "description": "Dairy Product",
+                    "date": "2022-05-01 19:17:25",
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                    "userid": 1
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Expense not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Expense not found",
+                  "expense": null
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Update expense by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "Updated expense object",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Expense"
+              },
+              "example": {
+                "name": "Milk",
+                "amount": 25,
+                "description": "Dairy Product",
+                "date": "2023-05-01 19:17:25",
+                "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                "userid": 1
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Expense updated successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Expense not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Expense not found."
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Delete expense by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Expense deleted successfully",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Expense not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Expense not found."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/user/{id}": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get all user's expense by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User expense details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "expense": [
+                    {
+                      "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
+                      "name": "Milk",
+                      "amount": 15,
+                      "description": "Dairy Product",
+                      "date": "2022-05-01 19:17:25",
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                      "userid": 1
+                    },
+                    {
+                      "expenseid": "6c62badf-1d65-4af3-9336-12f5f6e15e70",
+                      "name": "Electricity",
+                      "amount": 2500,
+                      "description": "Electricity",
+                      "date": "2023-08-12 08:00:00",
+                      "categoryid": "464ee097-0ab2-4cad-becf-e1a080320898",
+                      "userid": 1
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/user/{id}/average": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get the average for all user's expense by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User expense details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "expense": [
+                    {
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                      "amount": 1250
+                    },
+                    {
+                      "categoryid": "ee921003-948a-462d-ae7a-dff0a76cac4c",
+                      "amount": 900
+                    },
+                    {
+                      "categoryid": "81aeb00d-0f1b-4488-b079-1695ec571bcb",
+                      "amount": 750
+                    },
+                    {
+                      "categoryid": "959c3cdc-5e85-41ae-8856-caf1f5e6336d",
+                      "amount": 5
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User and/or Expenses not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "User and/or Expenses not found",
+                  "expense": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/user/{id}/sum": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get the sum for all user's expense by ID",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User expense details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "expense": [
+                    {
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                      "amount": 9000
+                    },
+                    {
+                      "categoryid": "ee921003-948a-462d-ae7a-dff0a76cac4c",
+                      "amount": 1350
+                    },
+                    {
+                      "categoryid": "81aeb00d-0f1b-4488-b079-1695ec571bcb",
+                      "amount": 1500
+                    },
+                    {
+                      "categoryid": "959c3cdc-5e85-41ae-8856-caf1f5e6336d",
+                      "amount": 5
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User and/or Expenses not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "User and/or Expenses not found",
+                  "expense": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/user/{id}/category/{catId}": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get all user's expense by category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "catId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User expense details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "expense": [
+                    {
+                      "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
+                      "name": "Milk",
+                      "amount": 15,
+                      "description": "Dairy Product",
+                      "date": "2022-05-01 19:17:25",
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                      "userid": 1
+                    },
+                    {
+                      "expenseid": "28882eb9-16aa-405e-9b53-df05b91129e9",
+                      "name": "Lettuce",
+                      "amount": 9,
+                      "description": "Vegetable",
+                      "date": "2023-09-12 09:30:25",
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                      "userid": 1
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/user/{id}/category/{catId}/average": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get the average for all user's expense by category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "catId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User expense details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "expense": {
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                    "amount": 1250
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User and/or Category not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "User and/or Category not found",
+                  "expense": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/expenses/user/{id}/category/{catId}/sum": {
+      "get": {
+        "tags": [
+          "expenses"
+        ],
+        "summary": "Get the sum for all user's expense by category",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "catId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User expense details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "expense": {
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                    "amount": 9000
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User and/or Category not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "User and/or Category not found",
+                  "expense": null
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -487,7 +1031,7 @@
         "type": "object",
         "properties": {
           "userid": {
-            "type": "integer"
+            "type": "text"
           },
           "email": {
             "type": "string"
@@ -501,9 +1045,39 @@
         "type": "object",
         "properties": {
           "categoryid": {
-            "type": "integer"
+            "type": "string",
+              "format": "uuid"
           },
           "name": {
+            "type": "string"
+          }
+        }
+      },
+      "Expense": {
+        "type": "object",
+        "properties": {
+          "expenseid": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string"
+          },
+          "amount": {
+            "type": "decimal"
+          },
+          "description": {
+            "type": "string"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "categoryid": {
+            "type": "string",
+              "format": "uuid"   
+          },
+          "userid": {
             "type": "string"
           }
         }

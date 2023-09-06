@@ -1,15 +1,33 @@
-import { Client, types as CassandraTypes } from 'cassandra-driver';
+import { Client, auth , types } from 'cassandra-driver';
+import fs from 'fs';
+import path from 'path';
+import { ResourceConfig } from '../../config';
+import { create } from 'domain';
 
+interface dbResponse {
+  rows: any[] | undefined;
+  rowLength: number | undefined;
+};
 class CassandraDatabase {
   private static instance: CassandraDatabase;
   private client: Client;
 
   private constructor() {
-    // Initialize Cassandra client here
+    const authProvider = new auth.PlainTextAuthProvider(ResourceConfig.dbConfig.username, ResourceConfig.dbConfig.password);
+    console.log(__dirname);
+    
+    const sslOptions1  = {
+        ca: [fs.readFileSync(path.resolve(__dirname, '../../../sf-class2-root.crt'), 'utf-8')],
+        host: ResourceConfig.dbConfig.contactPoints[0],
+        rejectUnauthorized: true,
+    };
+
     this.client = new Client({
-      contactPoints: ['localhost'], // Update with your Cassandra contact points
-      localDataCenter: 'datacenter1', // Update with your data center name
-      keyspace: 'expense_tracker', // Update with your keyspace name
+      contactPoints: ResourceConfig.dbConfig.contactPoints,
+      localDataCenter: ResourceConfig.dbConfig.localDataCenter,
+      authProvider: authProvider,
+      sslOptions: sslOptions1,
+      protocolOptions: { port: 9142 }
     });
  }
 
@@ -17,12 +35,20 @@ class CassandraDatabase {
         if (!CassandraDatabase.instance) {
         CassandraDatabase.instance = new CassandraDatabase();
         }
-        return CassandraDatabase.instance;
+        return CassandraDatabase.instance ;
     }
 
-  async execute(query: string, params?: any[]): Promise<any[]> {
-    const result = await this.client.execute(query, params, { prepare: true });
-    return result.rows;
+  async execute(query: string, params?: any[]): Promise<dbResponse | null> {
+    try {
+      const result = await this.client.execute(query, params, { prepare: true, consistency: types.consistencies.localQuorum, counter: true,  });
+      // console.log(result);
+      
+      return {rows: result.rows, rowLength: result.rowLength}
+    } catch (error : any) {
+      console.log(error.message);
+      return null;
+    }
+    
   }
 
   async shutdown(): Promise<void> {
