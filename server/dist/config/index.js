@@ -13,5 +13,7 @@ exports.ResourceConfig = {
         contactPoints: [process.env.CONTACT_POINTS || 'localhost'],
         localDataCenter: process.env.DATA_CENTER || 'datacenter1',
         keyspace: process.env.KEYSPACE || 'expense_tracker',
+        username: process.env.KEYSPACES_USERNAME || '',
+        password: process.env.KEYSPACES_PASSWORD || ''
     },
 };

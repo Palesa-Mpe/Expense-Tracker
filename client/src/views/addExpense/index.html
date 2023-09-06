@@ -28,19 +28,17 @@
     <h3 id="outcome" hidden></h3>
     <main>
         
-        <form action="">
+        <form action="POST">
             <section><label for="name">Name</label><input type="text" name="name" id="name"></section>
-            <section><label for="category">Category</label><article class="dropdown"><input id="dropdown-input" type="text" name="category" placeholder="Search...">
+            <section><label for="category">Category</label><article class="dropdown"><input id="categoryid" type="hidden" name="categoryid">
+              <input id="dropdown-input" type="text" name="category" placeholder="Search...">
                 <ul id="dropdown-list" class="dropdown-list">
-                  <li data-value="option1">Option 1</li>
-                  <li data-value="option2">Option 2</li>
-                  <li data-value="option3">Option 3</li>
-                  <!-- Add more options here -->
                 </ul>
             </article>
             </section>
             <section><label for="description">Description</label><textarea name="description" id="description" rows="3"></textarea></section>
             <section><label for="amount">Amount</label><span><input type="number" min="0" max="1000000" name="amount" id="amount" step="0.01"></span></section>
+            <section><label for="date">Date</label><input type="date" name="date" id="date"></section>
             <button type="submit">Add Expense</button>
         </form>
     </main>

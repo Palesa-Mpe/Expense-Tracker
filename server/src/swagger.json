@@ -60,6 +60,7 @@
                 "$ref": "#/components/schemas/User"
               },
               "example": {
+                "userid": "private_keys",
                 "email": "user3@example.com",
                 "username": "user3"
               }
@@ -92,7 +93,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -136,7 +137,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -155,7 +156,7 @@
           }
         },
         "responses": {
-          "204": {
+          "200": {
             "description": "User updated successfully",
             "content": {
               "application/json": {
@@ -189,7 +190,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -231,12 +232,12 @@
               "application/json": {
                 "example": [
                   {
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "name": "Entertainment"
                   },
                   {
-                    "categoryid": 2,
-                    "name": "Uitilities"
+                    "categoryid": "ee921003-948a-462d-ae7a-dff0a76cac4c",
+                    "name": "Utilities"
                   }
                 ]
               }
@@ -288,7 +289,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -300,7 +302,7 @@
                 "example": {
                   "success": true,
                   "category": {
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "name": "Entertainment"
                   }
                 }
@@ -332,7 +334,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -350,7 +353,7 @@
           }
         },
         "responses": {
-          "204": {
+          "200": {
             "description": "Category updated successfully",
             "content": {
               "application/json": {
@@ -384,7 +387,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -413,6 +417,52 @@
         }
       }
     },
+    "/categories/search/{name}": {
+      "get": {
+        "tags": [
+          "categories"
+        ],
+        "summary": "Get category by Name",
+        "parameters": [
+          {
+            "name": "name",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Category details",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": true,
+                  "category": {
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
+                    "name": "Entertainment"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Category not found",
+            "content": {
+              "application/json": {
+                "example": {
+                  "success": false,
+                  "message": "Category not found",
+                  "category": null
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/expenses": {
       "get": {
         "tags": [
@@ -426,21 +476,21 @@
               "application/json": {
                 "example": [
                   {
-                    "expenseid": 1,
+                    "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
                     "name": "Milk",
                     "amount": 15,
                     "description": "Dairy Product",
                     "date": "2022-05-01 19:17:25",
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "userid": 1
                   },
                   {
-                    "expenseid": 2,
+                    "expenseid": "a5a98b01-f3f1-4fdd-a3f2-1dc11b475641",
                     "name": "Milk",
                     "amount": 20,
                     "description": "Dairy Product",
                     "date": "2023-08-15 05:12:32",
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "userid": 3
                   }
                 ]
@@ -462,12 +512,11 @@
                 "$ref": "#/components/schemas/Expense"
               },
               "example": {
-                "expenseid": 1,
                 "name": "Milk",
                 "amount": 15,
                 "description": "Dairy Product",
                 "date": "2022-05-01 19:17:25",
-                "categoryid": 1,
+                "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                 "userid": 1
               }
             }
@@ -499,7 +548,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -511,12 +561,12 @@
                 "example": {
                   "success": true,
                   "expense": {
-                    "expenseid": 1,
+                    "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
                     "name": "Milk",
                     "amount": 15,
                     "description": "Dairy Product",
                     "date": "2022-05-01 19:17:25",
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "userid": 1
                   }
                 }
@@ -548,7 +598,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -564,14 +615,14 @@
                 "amount": 25,
                 "description": "Dairy Product",
                 "date": "2023-05-01 19:17:25",
-                "categoryid": 1,
+                "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                 "userid": 1
               }
             }
           }
         },
         "responses": {
-          "204": {
+          "200": {
             "description": "Expense updated successfully",
             "content": {
               "application/json": {
@@ -605,7 +656,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -646,7 +698,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -659,21 +711,21 @@
                   "success": true,
                   "expense": [
                     {
-                      "expenseid": 1,
+                      "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
                       "name": "Milk",
                       "amount": 15,
                       "description": "Dairy Product",
                       "date": "2022-05-01 19:17:25",
-                      "categoryid": 1,
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                       "userid": 1
                     },
                     {
-                      "expenseid": 9,
+                      "expenseid": "6c62badf-1d65-4af3-9336-12f5f6e15e70",
                       "name": "Electricity",
                       "amount": 2500,
                       "description": "Electricity",
                       "date": "2023-08-12 08:00:00",
-                      "categoryid": 4,
+                      "categoryid": "464ee097-0ab2-4cad-becf-e1a080320898",
                       "userid": 1
                     }
                   ]
@@ -696,7 +748,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -709,19 +761,19 @@
                   "success": true,
                   "expense": [
                     {
-                      "categoryid": 1,
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                       "amount": 1250
                     },
                     {
-                      "categoryid": 2,
+                      "categoryid": "ee921003-948a-462d-ae7a-dff0a76cac4c",
                       "amount": 900
                     },
                     {
-                      "categoryid": 3,
+                      "categoryid": "81aeb00d-0f1b-4488-b079-1695ec571bcb",
                       "amount": 750
                     },
                     {
-                      "categoryid": 9,
+                      "categoryid": "959c3cdc-5e85-41ae-8856-caf1f5e6336d",
                       "amount": 5
                     }
                   ]
@@ -756,7 +808,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           }
         ],
@@ -769,19 +821,19 @@
                   "success": true,
                   "expense": [
                     {
-                      "categoryid": 1,
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                       "amount": 9000
                     },
                     {
-                      "categoryid": 2,
+                      "categoryid": "ee921003-948a-462d-ae7a-dff0a76cac4c",
                       "amount": 1350
                     },
                     {
-                      "categoryid": 3,
+                      "categoryid": "81aeb00d-0f1b-4488-b079-1695ec571bcb",
                       "amount": 1500
                     },
                     {
-                      "categoryid": 9,
+                      "categoryid": "959c3cdc-5e85-41ae-8856-caf1f5e6336d",
                       "amount": 5
                     }
                   ]
@@ -816,7 +868,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           },
           {
@@ -824,7 +876,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -837,21 +890,21 @@
                   "success": true,
                   "expense": [
                     {
-                      "expenseid": 1,
+                      "expenseid": "76a9b41e-36a5-4334-a466-27ad7ac26c8c",
                       "name": "Milk",
                       "amount": 15,
                       "description": "Dairy Product",
                       "date": "2022-05-01 19:17:25",
-                      "categoryid": 1,
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                       "userid": 1
                     },
                     {
-                      "expenseid": 8,
+                      "expenseid": "28882eb9-16aa-405e-9b53-df05b91129e9",
                       "name": "Lettuce",
                       "amount": 9,
                       "description": "Vegetable",
                       "date": "2023-09-12 09:30:25",
-                      "categoryid": 1,
+                      "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                       "userid": 1
                     }
                   ]
@@ -874,7 +927,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           },
           {
@@ -882,7 +935,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -894,7 +948,7 @@
                 "example": {
                   "success": true,
                   "expense": {
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "amount": 1250
                   }
                 }
@@ -928,7 +982,7 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string"
             }
           },
           {
@@ -936,7 +990,8 @@
             "in": "path",
             "required": true,
             "schema": {
-              "type": "integer"
+              "type": "string",
+              "format": "uuid"
             }
           }
         ],
@@ -948,7 +1003,7 @@
                 "example": {
                   "success": true,
                   "expense": {
-                    "categoryid": 1,
+                    "categoryid": "c58d3895-5511-4117-a923-84db7df25747",
                     "amount": 9000
                   }
                 }
@@ -977,7 +1032,7 @@
         "type": "object",
         "properties": {
           "userid": {
-            "type": "integer"
+            "type": "text"
           },
           "email": {
             "type": "string"
@@ -991,7 +1046,8 @@
         "type": "object",
         "properties": {
           "categoryid": {
-            "type": "integer"
+            "type": "string",
+              "format": "uuid"
           },
           "name": {
             "type": "string"
@@ -1002,15 +1058,14 @@
         "type": "object",
         "properties": {
           "expenseid": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+            "format": "uuid"
           },
           "name": {
             "type": "string"
           },
           "amount": {
-            "type": "integer",
-            "format": "int32"
+            "type": "decimal"
           },
           "description": {
             "type": "string"
@@ -1020,12 +1075,11 @@
             "format": "date-time"
           },
           "categoryid": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string",
+              "format": "uuid"   
           },
           "userid": {
-            "type": "integer",
-            "format": "int32"
+            "type": "string"
           }
         }
       },
