@@ -45,8 +45,6 @@ export const ExpenseController = {
     },
 
     async createExpense(req: Request, res: Response) {
-        req.body.date = new Date();
-        
         const result = await ExpenseRepository.createExpense(req.body);
         if (result) {
             res.status(201).json({success: true});

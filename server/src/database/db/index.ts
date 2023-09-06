@@ -2,7 +2,6 @@ import { Client, auth , types } from 'cassandra-driver';
 import fs from 'fs';
 import path from 'path';
 import { ResourceConfig } from '../../config';
-import { create } from 'domain';
 
 interface dbResponse {
   rows: any[] | undefined;
@@ -14,7 +13,6 @@ class CassandraDatabase {
 
   private constructor() {
     const authProvider = new auth.PlainTextAuthProvider(ResourceConfig.dbConfig.username, ResourceConfig.dbConfig.password);
-    console.log(__dirname);
     
     const sslOptions1  = {
         ca: [fs.readFileSync(path.resolve(__dirname, '../../../sf-class2-root.crt'), 'utf-8')],
