@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "tsc",
     "start": "node ./dist/server.js",
-    "build" : "cd ../client && tsc && cp -R src/public dist"
+    "build" : "cd ../client && npm install -g typescript && tsc && cp -R src/public dist"
   },
   "author": "",
   "license": "ISC",
