@@ -15,6 +15,9 @@ main {
     justify-content: center;
   }
   
+  #inline-error{
+    color:red;
+  }
 .title-section {
   background-color: #f4d160;
   color: white;

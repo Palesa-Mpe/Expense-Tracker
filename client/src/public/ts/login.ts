@@ -1,12 +1,11 @@
-// import {ResourceConfig} from '../../config';
 const usernameTag = document.getElementById("username") as HTMLInputElement;
 const passwordTag = document.getElementById("password") as HTMLInputElement;
 const loginForm = document.getElementById("login-form") as HTMLFormElement;
 const inlineError = document.getElementById("inline-error") as HTMLParagraphElement;
 
 var poolData = {
-  UserPoolId: "",
-  ClientId: "",
+  UserPoolId: "eu-west-1_aaMmCDu1Y",
+  ClientId: "7smvdh43tavs8lb4esej2vk29j",
 };
 
 const client = new AmazonCognitoIdentity.CognitoUserPool(poolData);
@@ -32,12 +31,14 @@ function loginUser(e: Event) {
 
   cognitoUser.authenticateUser(authenticationDetails, {
     onSuccess: async function (session: any) {
+      inlineError.textContent="";
       console.log(session.getAccessToken().getJwtToken());
+
+      //Navigate to page
 
     },
     onFailure: function (err: any) {
-      console.error("Error logging in:", err.message || JSON.stringify(err));
-      inlineError && (inlineError.textContent = err.message || JSON.stringify(err));
+       inlineError.textContent = err.message || JSON.stringify(err);
     },
 
   });

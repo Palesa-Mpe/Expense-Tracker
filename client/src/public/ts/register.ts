@@ -1,47 +1,53 @@
-
 declare const AmazonCognitoIdentity: any;
 var poolData = {
-    UserPoolId: "",
-    ClientId: "",
-  };
+  UserPoolId: "eu-west-1_aaMmCDu1Y",
+  ClientId: "7smvdh43tavs8lb4esej2vk29j",
+};
 
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
 
 const usernameElement = document.getElementById("username") as HTMLInputElement;
 const emailElement = document.getElementById("email") as HTMLInputElement;
 const passwordElement = document.getElementById("password") as HTMLInputElement;
+ const inlineErr = document.getElementById(
+    "inline-error"
+  ) as HTMLParagraphElement;
+
+const registerForm = document.getElementById(
+  "register-form"
+) as HTMLFormElement;
+const confirmForm = document.getElementById(
+  "confirmRegister"
+) as HTMLFormElement;
 
 let username: string;
 let password: string;
 let email: string;
 
 function validatePassword() {
+
   const password = passwordElement?.value ?? null;
   const passwordRegex = new RegExp(
     /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
   );
-  // const inlineError = document.getElementById('error-inline');
+  inlineErr.textContent = "";
   if (!passwordRegex.test(password)) {
-    // inlineError.innerText = "Invalid password, you need 1 uppercase, 1 lowercase, 1 special character, a number and a minimum of 8 characters."
+    inlineErr.textContent =
+      "Invalid password, you need 1 uppercase, 1 lowercase, 1 special character, a number and a minimum of 8 characters.";
   }
   return passwordRegex.test(password);
 }
 
 function registerUser(event: Event) {
   event.preventDefault();
-   username = usernameElement?.value ?? null;
-   email = emailElement?.value ?? null;
-   password = passwordElement?.value ?? null;
+  username = usernameElement?.value ?? null;
+  email = emailElement?.value ?? null;
+  password = passwordElement?.value ?? null;
 
   try {
     if (!validatePassword()) {
       return;
     }
-
-    console.log("Username:", username);
-    console.log("Email:", email);
-    console.log("Password:", password);
-
     const attributeList = [
       new AmazonCognitoIdentity.CognitoUserAttribute({
         Name: "email",
@@ -57,21 +63,17 @@ function registerUser(event: Event) {
       password,
       attributeList,
       [],
-      function (err: any,result:any) {
+      function (err: any, result: any) {
         if (err) {
-          console.error(
-            "Error registering user:",
-            err.message || JSON.stringify(err)
-          );
+          inlineErr.textContent = err.message || JSON.stringify(err)
           return;
-        } 
+        }
         let cognitoUser = result.user;
-        console.log('user name is ' + cognitoUser.getUsername());
-        var modal = document.getElementById("myModal") as HTMLInputElement;
-        modal.style.display = "block";
-
-          //navigate for confirmation or display popup
-        
+        console.log("user name is " + cognitoUser.getUsername());
+        var modal = document.getElementById(
+          "confirmRegister"
+        ) as HTMLFormElement;
+        modal.style.display = "flex";
       }
     );
   } catch (e) {
@@ -81,20 +83,31 @@ function registerUser(event: Event) {
 
 function authorizeUser(event: Event) {
   event.preventDefault();
-  const authCodeElement = document.getElementById("confirmed-code") as HTMLInputElement;
+  console.log("confirming ig");
+  const authCodeElement = document.getElementById(
+    "auth-code"
+  ) as HTMLInputElement;
 
-  const authCode = authCodeElement.value;
+  const authCode = authCodeElement?.value;
   const userData = {
     Username: username,
     Pool: userPool,
   };
 
   const cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
-  cognitoUser.confirmRegistration(authCode, true, async (err: any, result: any) => {
-    if (err) {
-      console.log("Confirmation error:", err.message || JSON.stringify(err));
-    } else {
-        setTimeout(()=> {window.location.replace('http://localhost:8080/login')}, 1000);
+  cognitoUser.confirmRegistration(
+    authCode,
+    true,
+    async (err: any, result: any) => {
+      if (err) {
+        console.log("Confirmation error:", err.message || JSON.stringify(err));
+      } else {
+        setTimeout(() => {
+          window.location.replace("http://localhost:8080/login");
+        }, 1000);
+      }
     }
-  });
+  );
 }
+registerForm.addEventListener("submit", registerUser);
+confirmForm.addEventListener("submit", authorizeUser);
