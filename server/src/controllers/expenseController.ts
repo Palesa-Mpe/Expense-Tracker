@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { ExpenseRepository } from "../repositories/ExpenseRepository";
+import { ExpenseHelper } from "../helper/expenseHelper";
 
 export const ExpenseController = {
     async getAllExpenses(req: Request, res: Response) {
@@ -44,6 +45,8 @@ export const ExpenseController = {
     },
 
     async createExpense(req: Request, res: Response) {
+        req.body.date = new Date();
+        
         const result = await ExpenseRepository.createExpense(req.body);
         if (result) {
             res.status(201).json({success: true});
@@ -88,9 +91,9 @@ export const ExpenseController = {
     async getAvgAmount(req: Request, res: Response) {
         const id: string = req.params.id;
 
-        const result = await ExpenseRepository.getAvgAmount(id);
-        if (result?.rowLength != null && result.rowLength > 0) {
-            res.status(200).json({success: true, expense: result.rows});
+        const result = await ExpenseRepository.getUserAmount(id);
+        if (result?.rows != undefined && result?.rowLength != null && result.rowLength > 0) {
+            res.status(200).json({success: true, expense: await ExpenseHelper.calculateAverageAmounts(result.rows)});
         } else {
             res.status(404).json({success: false, message:"User and/or Expenses not found", expense: null});
         }
@@ -99,9 +102,10 @@ export const ExpenseController = {
     async getSumAmount(req: Request, res: Response) {
         const id: string = req.params.id;
         
-        const result = await ExpenseRepository.getSumAmount(id);
-        if (result?.rowLength != null && result.rowLength > 0) {
-            res.status(200).json({success: true, expense: result.rows});
+        const result = await ExpenseRepository.getUserAmount(id);
+        if (result?.rows != undefined && result?.rowLength != null && result.rowLength > 0) {
+            const expenses = await ExpenseHelper.calculateSumAmounts(result.rows);
+            res.status(200).json({success: true, expense: expenses});
         } else {
             res.status(404).json({success: false, message:"User and/or Expenses not found", expense: null});
         }
@@ -111,9 +115,9 @@ export const ExpenseController = {
         const userid: string = req.params.id;
         const categoryid: string = req.params.categoryid;
         
-        const result = await ExpenseRepository.getAvgAmountByCategory(userid, categoryid);
-        if (result?.rowLength != null && result.rowLength > 0) {
-            res.status(200).json({success: true, expense: result.rows});
+        const result = await ExpenseRepository.getUserAmountByCategory(userid, categoryid);
+        if (result?.rows != undefined && result?.rowLength != null && result.rowLength > 0) {
+            res.status(200).json({success: true, expense: await ExpenseHelper.calculateAverageAmounts(result.rows)});
         } else {
             res.status(404).json({success: false, message:"User and/or Category not found", expense: null});
         }
@@ -123,9 +127,9 @@ export const ExpenseController = {
         const userid: string = req.params.id;
         const categoryid: string = req.params.categoryid;
         
-        const result = await ExpenseRepository.getSumAmountByCategory(userid, categoryid);
-        if (result?.rowLength != null && result.rowLength > 0) {
-            res.status(200).json({success: true, expense: result.rows});
+        const result = await ExpenseRepository.getUserAmountByCategory(userid, categoryid);
+        if (result?.rows != undefined && result?.rowLength != null && result.rowLength > 0) {
+            res.status(200).json({success: true, expense: await ExpenseHelper.calculateSumAmounts(result.rows)});
         } else {
             res.status(404).json({success: false, message:"User and/or Category not found", expense: null});
         }

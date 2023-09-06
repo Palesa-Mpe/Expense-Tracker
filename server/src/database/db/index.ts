@@ -41,7 +41,7 @@ class CassandraDatabase {
   async execute(query: string, params?: any[]): Promise<dbResponse | null> {
     try {
       const result = await this.client.execute(query, params, { prepare: true, consistency: types.consistencies.localQuorum, counter: true,  });
-      console.log(result);
+      // console.log(result);
       
       return {rows: result.rows, rowLength: result.rowLength}
     } catch (error : any) {
