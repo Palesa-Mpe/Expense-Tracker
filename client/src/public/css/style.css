@@ -66,6 +66,26 @@ footer {
     position: relative;
 }
 
+abbr {
+    position: relative;
+    text-decoration: underline dotted;
+    cursor: help;
+  }
+  
+abbr:hover::after {
+  content: attr(title);
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  padding: 4px 8px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  z-index: 1;
+  display: block;
+}
 
 .scaryClown {
     animation: scaryClown 18.4s linear infinite;
