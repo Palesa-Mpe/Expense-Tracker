@@ -1,33 +1,78 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>
-            Register
-        </title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="css/register.css">
-    </head>
-    <body> 
-        <div id="container">
-            <div id="circle"></div>
-            <img src="images/balloon.png" height="400">
-            <form>
-                <header>
-                    <h2>PENNYWISE</h2>
-                    <h5>Come float with us and watch your savings rise</h5>
-                </header>
-                <h3>Register</h3>
-                <input class="underlined-input" type="text" placeholder="Username" />
-                <input class="underlined-input" type="email" placeholder="Email" />
-                <input class="underlined-input" type="password" placeholder="Password" />
-                <input class="button" type="button" value="Sign Up" />
-            </form>
-        </div>
-        </body>
-    </body>
-</html>     
+  <head>
+    <title>Register</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap"
+      rel="stylesheet"
+    />
+    <link
+    href="https://fonts.googleapis.com/css?family=Inter"
+    rel="stylesheet"
+  />
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.933.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.1/dist/amazon-cognito-identity.min.js"></script>
+
+    <link rel="stylesheet" href="/css/register.css" />
+    <script type="module" src="/ts/register.js"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="circle"></div>
+      <img src="images/balloon.png" height="400" />
+      <form id="register-form">
+        <header>
+          <h2>PENNYWISE</h2>
+          <h5>Come float with us and watch your savings rise</h5>
+        </header>
+        <h3>Register</h3>
+        <input
+          class="underlined-input"
+          type="text"
+          placeholder="Username"
+          id="username"
+          required
+        />
+        <input
+          class="underlined-input"
+          id="email"
+          type="email"
+          placeholder="Email"
+          required
+        />
+        <input
+          class="underlined-input"
+          id="password"
+          type="password"
+          placeholder="Password"
+          required
+        />
+        <p id="inline-error"></p>
+        <button class="button">Sign Up</button>
+      </form>
+    </div>
+    <form
+      id="confirmRegister"
+    >
+         <label for="auth-code"
+        >Please check your inbox for an authorization code</label
+      >
+      <input
+        required
+        type="auth-code"
+        id="auth-code"
+        placeholder="Authorization Code"
+      />
+ 
+      <button class="button">
+        Confirm
+      </button>
+    </form>
+
+  </body>
+</html>
