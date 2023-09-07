@@ -102,12 +102,16 @@ function authorizeUser(event: Event) {
       if (err) {
         console.log("Confirmation error:", err.message || JSON.stringify(err));
       } else {
+        const api = 'http://localhost:4040';
+        const email = document.getElementById('email')?.innerText;
+        const username = document.getElementById('username')?.innerText;
+        let request = {email: email, userid: ' ' /* get sub */, username: username}
         fetch(`${api}/user`, {
           method: 'POST',
           headers: {
             "Content-Type": "application/json",
-            // "Authorization": 
           },
+          body: JSON.stringify(request)
         })
         .then((reponse) => {
           setTimeout(() => {
