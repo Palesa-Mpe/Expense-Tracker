@@ -21,12 +21,12 @@ exports.UserController = {
     },
     async createUser(req, res) {
         const result = await UserRepository_1.UserRepository.createUser(req.body);
-        res.json(result);
-        // if (result) {
-        //   res.status(201).json({success: true});
-        // } else {
-        //   res.status(400).json({success: false, message:"Error"});
-        // }
+        if (result) {
+            res.status(201).json({ success: true });
+        }
+        else {
+            res.status(400).json({ success: false, message: "Error" });
+        }
     },
     async updateUser(req, res) {
         const id = req.params.id;
