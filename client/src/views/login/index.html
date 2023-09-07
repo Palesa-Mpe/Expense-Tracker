@@ -8,7 +8,11 @@
       href="https://fonts.googleapis.com/css?family=Inter"
       rel="stylesheet"
     />
-    <script type="text/javascript" src="/ts/login.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.933.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/amazon-cognito-identity-js@6.3.1/dist/amazon-cognito-identity.min.js"></script>
+    
+     <script>var exports = {"__esModule": true};</script>
+    <script type="module" src="/ts/login.js"></script>
   </head>
   <body>
     <main>
@@ -25,14 +29,16 @@
             required
             type="text"
             placeholder="username/e-mail"
+            id="username"
           />
           <input
             required
             type="password"
             placeholder="password"
+            id="password"
           />
           <a href="" class="forgot-password">Forgot password?</a>
-          <p id="error-inline"></p>
+          <p id="inline-error"></p>
           <button>Log In</button>
           <p>Don't have an account? <a href="/register">Sign up</a></p>
         </form>
