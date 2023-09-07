@@ -29,16 +29,16 @@
     <main>
         
         <form action="POST">
-            <section><label for="name">Name</label><input type="text" name="name" id="name"></section>
-            <section><label for="category">Category</label><article class="dropdown"><input id="categoryid" type="hidden" name="categoryid">
+            <section><label for="name">Name</label><input type="text" name="name" id="name" required></section>
+            <section><label for="category">Category</label><article class="dropdown"><input id="categoryid" type="hidden" name="categoryid" required>
               <input id="dropdown-input" type="text" name="category" placeholder="Search...">
                 <ul id="dropdown-list" class="dropdown-list">
                 </ul>
             </article>
             </section>
             <section><label for="description">Description</label><textarea name="description" id="description" rows="3"></textarea></section>
-            <section><label for="amount">Amount</label><span><input type="number" min="0" max="1000000" name="amount" id="amount" step="0.01"></span></section>
-            <section><label for="date">Date</label><input type="date" name="date" id="date"></section>
+            <section><label for="amount">Amount</label><span><input type="number" min="0.01" max="1000000" name="amount" id="amount" step="0.01" required></span></section>
+            <section><label for="date">Date</label><input type="date" name="date" id="date" min="2000-01-01" required></section>
             <button type="submit">Add Expense</button>
         </form>
     </main>

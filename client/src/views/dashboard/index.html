@@ -12,7 +12,8 @@
         <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="/css/style.css">
         <link rel="stylesheet" href="/css/dasboard.css">
-        <script src="/ts/code.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     </head>
     <body>
         <header>
@@ -48,7 +49,7 @@
                             <span class="tally-amount">N/A</span>
                         </figure>
                     </article>
-                    
+
                     <article class="dashboard-stat">
                         <figure>
                             <figcaption>Average Expenses</figcaption>
@@ -58,8 +59,9 @@
                     
                 </section>
                 
-                
-                <canvas></canvas>
+                <section class="chartContainer">
+                    <canvas id="myChart"></canvas>
+                </section>
                 <nav>
                     <button><a href="/addExpense">Add New Expense</a></button>
                     <button><a href="/analytics">Analytics</a></button>
@@ -67,5 +69,6 @@
             </section>
         </main>
         <footer><img class="scaryClown" src="/images/clown.gif" alt="scaryClown">Copyright &copy; 2023</footer>
-      </body>
+        <script type="application/javascript" src="/ts/chart.js"></script>
+    </body>
 </html>     

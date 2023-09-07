@@ -32,7 +32,7 @@ export const ExpenseRepository = {
     async createExpense(newExpense: Expense) {
         const id = uuidv4();
         
-        const result = await cassandraDatabase.execute(Queries.createExpense, [id, newExpense.amount, newExpense.categoryid, newExpense.date, newExpense.description, newExpense.name, "Dave"]);
+        const result = await cassandraDatabase.execute(Queries.createExpense, [id, newExpense.amount, newExpense.categoryid, newExpense.date, newExpense.description || ' ', newExpense.name, "Dave"]);
         
         return result;
     },

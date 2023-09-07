@@ -1,3 +1,4 @@
+const inputDate = document.getElementById('date') as HTMLInputElement;
 const input = document.getElementById('dropdown-input') as HTMLInputElement;
 const hiddenInput = document.getElementById('categoryid') as HTMLInputElement;
 const list = document.getElementById('dropdown-list') as HTMLUListElement;
@@ -29,6 +30,8 @@ input.addEventListener('blur', () => {
   });
 });
 
+inputDate.max = new Date().toISOString().split("T")[0];
+
 document.addEventListener('DOMContentLoaded', async () => {
   const url = 'http://localhost:4040/categories';
 
@@ -58,6 +61,16 @@ form.addEventListener('submit', async (event) => {
     formObject[key] = value;
   });
 
+  console.log(formObject);
+  if (formObject.name.trim() === '' || formObject.category.trim() === '') {
+    console.error('Form data submission failed');
+    document.documentElement.style
+    .setProperty('--outcome-background', 'red');
+    document.documentElement.style
+    .setProperty('--outcome-border', 'red');
+    outcome.innerText = "Failed to add an expense.";
+  }
+  
   try {
     fetch(url, {
       method: 'POST',
