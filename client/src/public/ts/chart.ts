@@ -1,8 +1,10 @@
 const api = 'http://localhost:4040';
 const infoSpans = document.getElementsByTagName('span');
+//TODO: Put userid here from localstorage
+const userid = "Dave";
 
 async function populateSpans() {
-  fetch(`${api}/expenses/user/Dave/sum`)
+  fetch(`${api}/expenses/user/${userid}/sum`)
   .then(response => response.json())
   .then( result => {
     
@@ -18,8 +20,8 @@ async function populateSpans() {
       .then((category) => {
         if (category.success) {
         infoSpans[0].innerText = 'R ' + total;
-        infoSpans[1].innerText = category.category[0].name;
-        infoSpans[2].innerText = 'R ' + (total / result.expense.length);
+        infoSpans[1].innerText = category.category.name;
+        infoSpans[2].innerText = 'R ' + (total / result.expense.length).toFixed(2);
         }
       });
     }
@@ -28,25 +30,26 @@ async function populateSpans() {
 
 async function createChart() {
   const canvas = document.getElementById('myChart') as HTMLCanvasElement ?? "";
-  fetch(`${api}/expenses/user/Dave/sum`)
+  fetch(`${api}/expenses/user/${userid}/sum`)
   .then(response => response.json())
   .then( async result => {
+    console.log(result);
+    
     let chartLabels: any[] = [];
     let chartData: any[] = [];
 
     if (result) {
-      const fetchPromises = result.expense.map(async (item: { categoryid: string; }) => {
-        const categoriesResult = await fetch(`${api}/categories/${item.categoryid}`);
+
+      for (let index = 0; index < result.expense.length; index++) {
+        const categoriesResult = await fetch(`${api}/categories/${result.expense[index].categoryid}`);
         const categories : any = await categoriesResult.json();
           
         if (categories.success) {
-          chartLabels.push(categories.category[0].name);
+          chartLabels.push(categories.category.name);
         }
-      });
 
-      await Promise.all(fetchPromises);
-
-      chartData = result.expense.map((item: { amount: number; }) => item.amount);
+        chartData.push(result.expense[index].amount.toFixed(2));
+      }
     }
 
 
@@ -63,6 +66,7 @@ async function createChart() {
         data: {
           labels: labels,
           datasets: [{
+            label: 'R',
             data: data,
           }]
         },

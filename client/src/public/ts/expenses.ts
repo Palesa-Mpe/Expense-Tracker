@@ -5,6 +5,8 @@ const list = document.getElementById('dropdown-list') as HTMLUListElement;
 const form = document.getElementsByTagName("form").item(0) as HTMLFormElement;
 const outcome = document.getElementById("outcome") as HTMLHRElement;
 
+const apiURL: string = 'http://localhost:4040';
+
 input.addEventListener('input', () => {
   const filter = input.value.toLowerCase();
   const options = list.getElementsByTagName('li');
@@ -30,10 +32,14 @@ input.addEventListener('blur', () => {
   });
 });
 
-inputDate.max = new Date().toISOString().split("T")[0];
+const currentYear = new Date();
+currentYear.setMonth(11);
+currentYear.setDate(31);
+
+inputDate.max = currentYear.toISOString().split("T")[0];
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const url = 'http://localhost:4040/categories';
+  const url = `${apiURL}/categories`;
 
   fetch(url)
   .then(response => response.json())
@@ -55,53 +61,60 @@ form.addEventListener('submit', async (event) => {
 
   const formData = new FormData(form);
   
-  const url = 'http://localhost:4040/expenses';
+  const url = `${apiURL}/expenses`;
   const formObject: { [key: string]: any } = {};
   formData.forEach((value, key) => {
     formObject[key] = value;
   });
 
-  console.log(formObject);
+  //TODO: Put the userid here from localstorage
+  formObject['userid'] = "Dave";
+  
   if (formObject.name.trim() === '' || formObject.category.trim() === '') {
+    outcome.hidden = false;
     console.error('Form data submission failed');
     document.documentElement.style
     .setProperty('--outcome-background', 'red');
     document.documentElement.style
     .setProperty('--outcome-border', 'red');
-    outcome.innerText = "Failed to add an expense.";
-  }
-  
-  try {
-    fetch(url, {
-      method: 'POST',
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formObject)
-    }).then(response => response.json())
-    .then(data => {
-      outcome.hidden = false;
-      if (data.success) {
-        console.log('Form data submitted successfully');
-        document.documentElement.style
-        .setProperty('--outcome-background', 'mediumspringgreen');
-        document.documentElement.style
-        .setProperty('--outcome-border', 'mediumseagreen');
-        outcome.innerText = "Successfully added an expense.";
-      } else {
-        console.error('Form data submission failed');
-        document.documentElement.style
-        .setProperty('--outcome-background', 'red');
-        document.documentElement.style
-        .setProperty('--outcome-border', 'red');
-        outcome.innerText = "Failed to add an expense.";
-      }
-      setTimeout(() => {
-        outcome.hidden = true;
-      }, 5000);
-    });
-  } catch (error) {
-    console.error('An error occurred:', error);
+    outcome.innerText = "Please fill in all required fields.";
+
+    setTimeout(() => {
+      outcome.hidden = true;
+    }, 5000);
+  } else {
+    try {
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formObject)
+      }).then(response => response.json())
+      .then(data => {
+        outcome.hidden = false;
+        if (data.success) {
+          console.log('Form data submitted successfully');
+          document.documentElement.style
+          .setProperty('--outcome-background', 'mediumspringgreen');
+          document.documentElement.style
+          .setProperty('--outcome-border', 'mediumseagreen');
+          outcome.innerText = "Successfully added an expense.";
+        } else {
+          console.error('Form data submission failed');
+          document.documentElement.style
+          .setProperty('--outcome-background', 'red');
+          document.documentElement.style
+          .setProperty('--outcome-border', 'red');
+          outcome.innerText = "Failed to add an expense.";
+        }
+        setTimeout(() => {
+          outcome.hidden = true;
+        }, 5000);
+      });
+    } catch (error) {
+      console.error('An error occurred:', error);
+    }
   }
 });
 

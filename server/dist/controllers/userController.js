@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const UserRepository_1 = require("../repositories/UserRepository");
+const tokenHelper_1 = require("../helper/tokenHelper");
 exports.UserController = {
     async getAllUsers(req, res) {
         const result = await UserRepository_1.UserRepository.getAllUsers();
@@ -20,6 +21,9 @@ exports.UserController = {
         }
     },
     async createUser(req, res) {
+        if (req.headers.authorization) {
+            console.log(tokenHelper_1.TokenHelper.decodeToken(req.headers.authorization));
+        }
         const result = await UserRepository_1.UserRepository.createUser(req.body);
         if (result) {
             res.status(201).json({ success: true });

@@ -13,8 +13,8 @@ export const categoryController = {
         const id : string = req.params.id;
 
         const result = await CategoryRepository.getCategoryById(id);
-        if (result?.rowLength != null && result.rowLength > 0) {
-            res.status(200).json({success: true, category: result.rows});
+        if (result?.rows != undefined &&result?.rowLength != null && result.rowLength > 0) {
+            res.status(200).json({success: true, category: result.rows[0]});
         } else {
             res.status(404).json({success: false, message:"Category not found", category: null});
         }

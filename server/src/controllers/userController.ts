@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { UserRepository } from '../repositories/UserRepository';
+import { TokenHelper } from '../helper/tokenHelper';
 
 export const UserController = {
   async getAllUsers(req: Request, res: Response) {
@@ -21,6 +22,10 @@ export const UserController = {
   },
 
   async createUser(req: Request, res: Response) {
+    if (req.headers.authorization) {
+      console.log(TokenHelper.decodeToken(req.headers.authorization));
+    }
+
     const result = await UserRepository.createUser(req.body);
     if (result) {
       res.status(201).json({ success: true });
@@ -60,5 +65,14 @@ export const UserController = {
     } else {
       res.status(404).json({ success: false, message: "User not found" });
     }
+  },
+
+  async verifyUser(req: Request, res: Response) {
+    if (req.headers.authorization) {
+      console.log(TokenHelper.decodeToken(req.headers.authorization));
+    }
+
+    console.log();
+    
   },
 };
