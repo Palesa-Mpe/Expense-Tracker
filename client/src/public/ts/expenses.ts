@@ -68,7 +68,7 @@ form.addEventListener('submit', async (event) => {
   });
 
   //TODO: Put the userid here from localstorage
-  formObject['userid'] = "Dave";
+  formObject['userid'] = localStorage.getItem('userid');
   
   if (formObject.name.trim() === '' || formObject.category.trim() === '') {
     outcome.hidden = false;

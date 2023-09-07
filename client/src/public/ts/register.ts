@@ -102,9 +102,18 @@ function authorizeUser(event: Event) {
       if (err) {
         console.log("Confirmation error:", err.message || JSON.stringify(err));
       } else {
-        setTimeout(() => {
-          window.location.replace("http://localhost:8080/login");
-        }, 1000);
+        fetch(`${api}/user`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+            // "Authorization": 
+          },
+        })
+        .then((reponse) => {
+          setTimeout(() => {
+            window.location.replace("http://localhost:8080/login");
+          }, 1000);
+        })
       }
     }
   );

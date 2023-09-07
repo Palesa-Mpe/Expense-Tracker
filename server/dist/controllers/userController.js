@@ -22,7 +22,11 @@ exports.UserController = {
     },
     async createUser(req, res) {
         if (req.headers.authorization) {
-            console.log(tokenHelper_1.TokenHelper.decodeToken(req.headers.authorization));
+            const userInfo = await tokenHelper_1.TokenHelper.decodeToken(req.headers.authorization);
+            if (userInfo) {
+                req.body.userid = userInfo.sub;
+                req.body.username = userInfo.username;
+            }
         }
         const result = await UserRepository_1.UserRepository.createUser(req.body);
         if (result) {
@@ -63,6 +67,16 @@ exports.UserController = {
         }
         else {
             res.status(404).json({ success: false, message: "User not found" });
+        }
+    },
+    async verifyUser(req, res) {
+        if (req.headers.authorization) {
+            tokenHelper_1.TokenHelper.decodeToken(req.headers.authorization)
+                .then((token) => {
+                if (token) {
+                    res.status(200).json({ success: true, userid: token.sub });
+                }
+            });
         }
     },
 };

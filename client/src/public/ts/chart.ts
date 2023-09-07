@@ -1,7 +1,7 @@
 const api = 'http://localhost:4040';
 const infoSpans = document.getElementsByTagName('span');
-//TODO: Put userid here from localstorage
-const userid = "Dave";
+
+const userid = localStorage.getItem('userid') ?? "Dave";
 
 async function populateSpans() {
   fetch(`${api}/expenses/user/${userid}/sum`)
@@ -38,7 +38,7 @@ async function createChart() {
     let chartLabels: any[] = [];
     let chartData: any[] = [];
 
-    if (result) {
+    if (result.success) {
 
       for (let index = 0; index < result.expense.length; index++) {
         const categoriesResult = await fetch(`${api}/categories/${result.expense[index].categoryid}`);
@@ -50,15 +50,12 @@ async function createChart() {
 
         chartData.push(result.expense[index].amount.toFixed(2));
       }
-    }
-
-
-    if (chartLabels.length <= 0) {
+    } else {
       chartLabels = ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5'];
       chartData = [12, 19, 3, 5, 2];
     }
-    const labels = chartLabels;
 
+    const labels = chartLabels;
     const data = chartData;
 
     new Chart(canvas.getContext("2d") || '', {
@@ -76,8 +73,6 @@ async function createChart() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  populateSpans();
-  createChart();
-});
+populateSpans();
+createChart();
 

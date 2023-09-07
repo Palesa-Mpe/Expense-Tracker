@@ -68,6 +68,8 @@ img{
     margin: 4px 10px;
     border-radius: 12px;
     width: 150px;
+    cursor: pointer;
+
 }
 #inline-error{
     font-family: "Inter";

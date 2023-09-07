@@ -23,7 +23,11 @@ export const UserController = {
 
   async createUser(req: Request, res: Response) {
     if (req.headers.authorization) {
-      console.log(TokenHelper.decodeToken(req.headers.authorization));
+      const userInfo = await TokenHelper.decodeToken(req.headers.authorization);
+      if (userInfo) {
+        req.body.userid = userInfo.sub;
+        req.body.username = userInfo.username;
+      }
     }
 
     const result = await UserRepository.createUser(req.body);
@@ -69,9 +73,14 @@ export const UserController = {
 
   async verifyUser(req: Request, res: Response) {
     if (req.headers.authorization) {
-      const response = await TokenHelper.decodeToken(req.headers.authorization[0]);
       
-      console.log(response);
+      TokenHelper.decodeToken(req.headers.authorization)
+      .then((token) => {
+        if (token) {
+          res.status(200).json({ success: true, userid: token.sub });
+        }
+      });
+      
     }
   },
 };
