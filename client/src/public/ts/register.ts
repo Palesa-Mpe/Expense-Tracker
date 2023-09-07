@@ -103,9 +103,7 @@ function authorizeUser(event: Event) {
         console.log("Confirmation error:", err.message || JSON.stringify(err));
       } else {
         const api = 'http://localhost:4040';
-        const email = document.getElementById('email')?.innerText;
-        const username = document.getElementById('username')?.innerText;
-        let request = {email: email, userid: ' ' /* get sub */, username: username}
+        let request = {email: emailElement.innerText, userid: '' /* get sub */, username: usernameElement.innerText}
         fetch(`${api}/user`, {
           method: 'POST',
           headers: {
