@@ -10,39 +10,39 @@
 <body>
     <header>
       <a href="/dashboard">
-        <img
-        class="icon"
-        alt="dashboard-icon"
-        src="/images/back-button.svg"
-        />
+        <abbr title="Back"><img
+          class="icon"
+          alt="dashboard-icon"
+          src="/images/back-button.svg"
+          /></abbr>
       </a>
       <h1>ADD NEW EXPENSE</h1>
       <a href="/login">
-        <img
+        <abbr title="Logout"><img
           class="icon"
           alt="signout-icon"
           src="/images/leave.png"
-        />
+        /></abbr>
       </a>
     </header>
     <h3 id="outcome" hidden></h3>
     <main>
         
         <form action="POST">
-            <section><label for="name">Name</label><input type="text" name="name" id="name"></section>
-            <section><label for="category">Category</label><article class="dropdown"><input id="categoryid" type="hidden" name="categoryid">
+            <section><label for="name">Name</label><input type="text" name="name" id="name" required></section>
+            <section><label for="category">Category</label><article class="dropdown"><input id="categoryid" type="hidden" name="categoryid" required>
               <input id="dropdown-input" type="text" name="category" placeholder="Search...">
                 <ul id="dropdown-list" class="dropdown-list">
                 </ul>
             </article>
             </section>
             <section><label for="description">Description</label><textarea name="description" id="description" rows="3"></textarea></section>
-            <section><label for="amount">Amount</label><span><input type="number" min="0" max="1000000" name="amount" id="amount" step="0.01"></span></section>
-            <section><label for="date">Date</label><input type="date" name="date" id="date"></section>
+            <section><label for="amount">Amount</label><span><input type="number" min="0.01" max="1000000" name="amount" id="amount" step="0.01" required></span></section>
+            <section><label for="date">Date</label><input type="date" name="date" id="date" min="2000-01-01" required></section>
             <button type="submit">Add Expense</button>
         </form>
     </main>
-    <footer><img class="scaryClown" src="/images/clown.gif" alt="Sads">Copyright &copy; 2023</footer>
+    <footer><img class="scaryClown" src="/images/clown.gif" alt="scaryClown">Copyright &copy; 2023</footer>
     <script type="text/javascript" src="/ts/expenses.js"></script>
 </body>
 </html>

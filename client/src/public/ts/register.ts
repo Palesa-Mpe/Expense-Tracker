@@ -23,6 +23,7 @@ const confirmForm = document.getElementById(
 let username: string;
 let password: string;
 let email: string;
+let userIdentifier:string;
 
 function validatePassword() {
 
@@ -70,6 +71,7 @@ function registerUser(event: Event) {
         }
         let cognitoUser = result.user;
         console.log("user name is " + cognitoUser.getUsername());
+        userIdentifier = result.userSub;
         var modal = document.getElementById(
           "confirmRegister"
         ) as HTMLFormElement;
@@ -83,7 +85,6 @@ function registerUser(event: Event) {
 
 function authorizeUser(event: Event) {
   event.preventDefault();
-  console.log("confirming ig");
   const authCodeElement = document.getElementById(
     "auth-code"
   ) as HTMLInputElement;
@@ -102,9 +103,20 @@ function authorizeUser(event: Event) {
       if (err) {
         console.log("Confirmation error:", err.message || JSON.stringify(err));
       } else {
-        setTimeout(() => {
-          window.location.replace("http://localhost:8080/login");
-        }, 1000);
+        const api = 'http://localhost:4040';
+        let request = {email: emailElement.innerText, userid: userIdentifier, username: usernameElement.innerText}
+        fetch(`${api}/user`, {
+          method: 'POST',
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(request)
+        })
+        .then((reponse) => {
+          setTimeout(() => {
+            window.location.replace("http://localhost:8080/login");
+          }, 1000);
+        })
       }
     }
   );

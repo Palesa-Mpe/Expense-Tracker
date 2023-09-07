@@ -18,6 +18,11 @@ h5{
     margin-top: -20px;
 }
 
+a {
+    text-decoration: none;
+    color: #6c78ea;
+}
+
 form{
     border-radius: 15px;
     display: flex;
@@ -63,6 +68,8 @@ img{
     margin: 4px 10px;
     border-radius: 12px;
     width: 150px;
+    cursor: pointer;
+
 }
 #inline-error{
     font-family: "Inter";
