@@ -1,4 +1,5 @@
 const input = document.getElementById('dropdown-input') as HTMLInputElement;
+const hiddenInput = document.getElementById('categoryid') as HTMLInputElement;
 const list = document.getElementById('dropdown-list') as HTMLUListElement;
 const form = document.getElementsByTagName("form").item(0) as HTMLFormElement;
 const outcome = document.getElementById("outcome") as HTMLHRElement;
@@ -9,7 +10,7 @@ input.addEventListener('input', () => {
 
   for (let i = 0; i < options.length; i++) {
     const option = options[i];
-    const value = option.getAttribute('data-value')?.toLowerCase() || '';
+    const value = option.innerText?.toLowerCase() || '';
     if (value.includes(filter)) {
       option.style.display = 'block';
     } else {
@@ -29,29 +30,20 @@ input.addEventListener('blur', () => {
 });
 
 document.addEventListener('DOMContentLoaded', async () => {
-  const url = 'http://localhost:4040/category';
+  const url = 'http://localhost:4040/categories';
 
-  // fetch(url)
-  // .then(response => response.json())
-  // .then(data => {
-  //   if (data.success) {
-  //     console.log('Categories received successfully');
-  //     data.categories.forEach((category: any) => {
-  //       populateCategories(category);
-  //     });
-  //   } else {
-  //     console.error('Categories retrieving failed');
-  //   }
-  // });
-  
-  
-  document.querySelectorAll('li').forEach(li => {
-    const listItem = li as HTMLLIElement;
-    listItem.addEventListener('mousedown', () => {
-      input.value = listItem.innerText;
-    });
+  fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    if (data) {
+      console.log('Categories received successfully');
+      data.forEach((category: any) => {
+        populateCategories(category);
+      });
+    } else {
+      console.error('Categories retrieving failed');
+    }
   });
-
   
 });
 
@@ -59,12 +51,20 @@ form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
   const formData = new FormData(form);
+  
   const url = 'http://localhost:4040/expenses';
+  const formObject: { [key: string]: any } = {};
+  formData.forEach((value, key) => {
+    formObject[key] = value;
+  });
 
   try {
     fetch(url, {
       method: 'POST',
-      body: formData
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formObject)
     }).then(response => response.json())
     .then(data => {
       outcome.hidden = false;
@@ -94,8 +94,12 @@ form.addEventListener('submit', async (event) => {
 
 function populateCategories(categoryInfo : any): void {
   const li : HTMLLIElement = document.createElement('li');
-  li.setAttribute('data-value', categoryInfo.Id);
-  li.innerText = categoryInfo.Name;
+  li.setAttribute('data-value', categoryInfo.categoryid);
+  li.innerText = categoryInfo.name;
+  li.addEventListener('mousedown', () => {
+    input.value = li.innerText;
+    hiddenInput.value = li.getAttribute('data-value') ?? ' ';
+  });
 
   list.appendChild(li);
 }

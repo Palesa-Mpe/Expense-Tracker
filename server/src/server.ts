@@ -1,6 +1,7 @@
 import express, {Express} from "express";
 import {ResourceConfig} from './config';
 import {router} from './routes';
+import { cassandraDatabase } from "./database/db/";
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './swagger.json';
 import cors from "cors";
@@ -24,6 +25,7 @@ server.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 server.get('*', function (req, res) {
   res.redirect('/api-docs');
 })
+
 
 server.listen(port, () => {
   console.log(`http://localhost:${port}`);
