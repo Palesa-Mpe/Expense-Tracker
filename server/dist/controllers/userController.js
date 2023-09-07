@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserController = void 0;
 const UserRepository_1 = require("../repositories/UserRepository");
+const tokenHelper_1 = require("../helper/tokenHelper");
 exports.UserController = {
     async getAllUsers(req, res) {
         const result = await UserRepository_1.UserRepository.getAllUsers();
@@ -20,6 +21,13 @@ exports.UserController = {
         }
     },
     async createUser(req, res) {
+        if (req.headers.authorization) {
+            const userInfo = await tokenHelper_1.TokenHelper.decodeToken(req.headers.authorization);
+            if (userInfo) {
+                req.body.userid = userInfo.sub;
+                req.body.username = userInfo.username;
+            }
+        }
         const result = await UserRepository_1.UserRepository.createUser(req.body);
         if (result) {
             res.status(201).json({ success: true });
@@ -59,6 +67,16 @@ exports.UserController = {
         }
         else {
             res.status(404).json({ success: false, message: "User not found" });
+        }
+    },
+    async verifyUser(req, res) {
+        if (req.headers.authorization) {
+            tokenHelper_1.TokenHelper.decodeToken(req.headers.authorization)
+                .then((token) => {
+                if (token) {
+                    res.status(200).json({ success: true, userid: token.sub });
+                }
+            });
         }
     },
 };

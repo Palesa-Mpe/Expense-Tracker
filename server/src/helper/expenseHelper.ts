@@ -26,7 +26,7 @@ export class ExpenseHelper {
             console.log(sum);
             console.log(count);
             
-            averages.push({ categoryid: categoryid, amount: Number(sum / count) });
+            averages.push({ categoryid: categoryid, amount: Number((sum / count).toFixed(2)) });
         }
 
         return averages;
@@ -50,7 +50,7 @@ export class ExpenseHelper {
         let sumArray: Array<CategoryAmount> = [];
 
         for (const [categoryid, { sum }] of amountSums.entries()) {
-            sumArray.push({ categoryid: categoryid, amount: Number(sum) });
+            sumArray.push({ categoryid: categoryid, amount: Number(sum.toFixed(2)) });
         }
 
         return sumArray;

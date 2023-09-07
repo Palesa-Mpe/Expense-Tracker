@@ -1,0 +1,66 @@
+article h2{
+    position: relative;
+    font-size: 5em;
+    z-index: 4;
+    font-family: 'Creepster', cursive;
+    color: white ;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    letter-spacing: 3px;
+    mix-blend-mode: difference;
+}
+
+main{
+  height: 72vh;
+}
+
+article {
+  height: 100%;
+  background-color: white;
+  background-image: url("/images/pennywise-the-clown-silhouette-6.png");
+  background-size: 50%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.suprise {
+  position: fixed;
+  height: 75%;
+  bottom: 0.7em;
+  z-index: 3;
+  animation: dissapear 9 linear infinite;
+  mix-blend-mode: difference;
+}
+
+.balloon {
+  position: absolute;
+  bottom: 0;
+  height: 7em;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: float 15s linear infinite;
+}
+  
+@keyframes float {
+  0% {
+    transform: translateX(-60%) translateY(0%);
+  }
+  50% {
+    transform: translateX(-25%) translateY(-50vh);
+  }
+  100% {
+    transform: translateX(-0%) translateY(-100vh);
+  }
+}
+
+@keyframes dissapear {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+}
+  

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>
+            Dashboard
+        </title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=ABeeZee&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="/css/dasboard.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    </head>
+    <body>
+        <header>
+            <a href="#">
+                <abbr title="Home"><img
+                    class="icon"
+                    alt="home-icon"
+                    src="/images/balloon.png"
+                  /></abbr>
+            </a>
+            <h1>DASHBOARD</h1>
+            <a href="/login">
+              <abbr title="Logout"><img
+                alt="signout-icon"
+                src="/images/leave.png"
+              /></abbr>
+            </a>
+            
+        </header>
+        <main>
+            <section class="content">
+                <section>
+                    <article class="dashboard-stat">
+                        <figure>
+                            <figcaption>Total Expenses</figcaption>
+                            <span class="tally-amount">R0.00</span>
+                        </figure>
+                    </article>
+                    
+                    <article class="dashboard-stat">
+                        <figure>
+                            <figcaption>Your Most Expensive Category</figcaption>
+                            <span class="tally-amount">N/A</span>
+                        </figure>
+                    </article>
+
+                    <article class="dashboard-stat">
+                        <figure>
+                            <figcaption>Average Expenses</figcaption>
+                            <span class="tally-amount">R0.00</span>
+                        </figure>
+                    </article>
+                    
+                </section>
+                
+                <section class="chartContainer">
+                    <canvas id="myChart"></canvas>
+                </section>
+                <nav>
+                    <button><a href="/addExpense">Add New Expense</a></button>
+                    <button><a href="/analytics">Analytics</a></button>
+                </nav>
+            </section>
+        </main>
+        <footer><img class="scaryClown" src="/images/clown.gif" alt="scaryClown">Copyright &copy; 2023</footer>
+        <script type="application/javascript" src="/ts/chart.js"></script>
+    </body>
+</html>     
