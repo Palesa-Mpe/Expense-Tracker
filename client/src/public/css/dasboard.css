@@ -5,26 +5,52 @@ body {
     
   }
 
-  main article {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    text-align: center;
+  .content {
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Two columns of equal width */
+    grid-template-rows: auto 1fr; /* Auto for header, 1fr for the rest */
+    gap: 10px; /* Adjust the gap between grid items */
+    row-gap: 1em;
+    width: 80%; 
     padding: 20px;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(244, 209, 96, 1);
     background-color: white;
   }
 
-  main article section{
+  main .content section {
+    grid-column: 1 / span 2; 
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+  }
+
+  main section nav{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+
+  main section nav button{
+    width: 70%;
+  }
+
+  .dashboard-stat {
+    margin: 0 1em;
+    box-shadow: none;
+    border-radius: 10px;
     padding: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
+    border: 2px solid var(--main);
   }
 
-  main article section button a{
+  nav a{
     text-decoration: none;
     color: black;
   }
@@ -33,3 +59,24 @@ body {
     width: 3em;
   }
   
+  .tally-amount {
+    font-size: 24px;
+    animation: tallyAnimation 1s ease-in-out forwards;
+  }
+
+  canvas{
+    border: 1px black solid;
+    width: 100%;
+  }
+  
+  
+  @keyframes tallyAnimation {
+    from {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
