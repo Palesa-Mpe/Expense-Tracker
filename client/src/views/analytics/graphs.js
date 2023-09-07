@@ -2,6 +2,7 @@ let xValues = [];
 let yValues = [];
 let userId = localStorage.getItem("userid");
 let categories = [];
+let done = [];
 
 const apiURL = 'http://localhost:4040';
 const userExpenseUrl = `${apiURL}/expenses/user/${userId}`;
@@ -32,92 +33,61 @@ function generateRandomColorsArray(length) {
 }
 
 function populateCategories(category) {
-  yValues.push(category);
+  xValues.push(category);
 }
 
 function populateAmounts(totalAmount) {
-  const value = totalAmount;
-  xValues.push(value);
+  yValues.push(totalAmount);
 }
 
-function fetchCategoriesByName() {
+async function fetchCategoriesByName() {
 
-  categories.forEach(async (category) => {
-
-    const response = await fetch(`${apiURL}/categories/${category}`);
-    const data = await response.json();
-
-    if (data) {
-      console.log('Category by name received successfully', data);
-      populateCategories(data.category.name)
-    } else {
-      console.error('Category by name retrieving failed');
+  for (const category of categories) {
+    try {
+      const response = await fetch(`${apiURL}/categories/${category}`);
+      const data = await response.json();
+      if (data) {
+        console.log('Category by name received successfully');
+        if(!(xValues.includes(data.category.name))) {
+          done.push(data.category.categoryid)
+          populateCategories(data.category.name);
+        }
+      } else {
+        console.error('Category by name retrieving failed');
+      }
+    } catch (error) {
+      console.error('Error fetching category by name:', error);
     }
-
-    // await fetch(`${apiURL}/categories/${category}`)
-    // .then(response => response.json())
-    // .then(data => {
-    //   if (data) {
-    //     console.log('Category by name received successfully', data);
-    //     populateCategories(data.category.name)
-    //   } else {
-    //     console.error('Category by name retrieving failed');
-    //   }
-    // });
-  });
+  }
 
 }
 
-function fetchCategoriesTotal() {
-  categories.forEach(async (category) => {
+async function fetchCategoriesTotal() {
 
-    const response = await fetch(`${apiURL}/expenses/user/${userId}/category/${category}/sum`);
-    const data = await response.json();
+  for (const category of categories) {
+    try {
 
-    if (data) {
-      console.log('Category expenses total received successfully');
-
-      populateAmounts(data.expense[0].amount);
-    } else {
-      console.error('Category expenses total retrieving failed');
+      const response = await fetch(`${apiURL}/expenses/user/${userId}/category/${category}/sum`);
+      const data = await response.json();
+      if (data) {
+        console.log('Category expenses total received successfully');
+        if (done.includes(category)) {
+          populateAmounts(data.expense[0].amount);
+          done = done.slice(done.indexOf(category))
+        }
+      } else {
+        console.error('Category expenses total retrieving failed');
+      }
+    } catch (error) {
+      console.error('Error fetching category expenses total:', error);
     }
+  }
 
-    // await fetch(`${apiURL}/expenses/user/${userId}/category/${category}/sum`)
-    // .then(response => response.json())
-    // .then(data => {
-    //   if (data) {
-    //     console.log('Category expenses total received successfully');
-
-    //     populateAmounts(data.expense[0].amount);
-    //   } else {
-    //     console.error('Category expenses total retrieving failed');
-    //   }
-    // });
-  })
 }
-
-// fetch(userExpenseUrl)
-// .then(response => response.json())
-// .then(data => {
-//   if (data) {
-//     console.log('Expenses received successfully');
-//     const expenses = data.expense;
-
-//     expenses.forEach((expense) => {
-//       categories.push(expense.categoryid)
-//     });
-
-//     fetchCategoriesByName();
-//     fetchCategoriesTotal();
-//     populateChart();
-//   } else {
-//     console.error('Expenses retrieving failed');
-//   }
-// });
 
 function populateChart() {
-  console.log(xValues);
-  console.log(xValues.length);
+  console.log('popChart',xValues);
+  console.log('len',xValues.length > 0);
 let barColors = generateRandomColorsArray(xValues.length);
 
 new Chart("myChart", {
@@ -149,7 +119,7 @@ new Chart("myChart", {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'X-Axis Label',
+          text: 'Expense Category',
           font: {
             size: 25
           }
@@ -159,7 +129,7 @@ new Chart("myChart", {
         beginAtZero: true,
         title: {
           display: true,
-          text: 'Y-Axis Label',
+          text: 'Total Amount (ZAR)',
           font: {
             size: 25
           }
@@ -170,6 +140,27 @@ new Chart("myChart", {
 });
 }
 
-fetchCategoriesByName();
-fetchCategoriesTotal();
-populateChart();
+async function Main() {
+  const response = await fetch(userExpenseUrl);
+  const data = await response.json();
+
+  if (data) {
+    console.log('Expenses received successfully');
+    const expenses = data.expense;
+
+    expenses.forEach((expense) => {
+      categories.push(expense.categoryid);
+    });
+
+    await fetchCategoriesByName();
+    await fetchCategoriesTotal();
+
+    // Now that the data is fetched and processed, call populateChart
+    populateChart();
+
+  } else {
+    console.error('Expenses retrieving failed');
+  }
+}
+
+Main();

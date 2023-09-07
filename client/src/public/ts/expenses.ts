@@ -93,7 +93,8 @@ form.addEventListener('submit', async (event) => {
       }).then(response => response.json())
       .then(data => {
         outcome.hidden = false;
-        if (data.success) {
+
+        if (data?.rowLength > 0) {
           console.log('Form data submitted successfully');
           document.documentElement.style
           .setProperty('--outcome-background', 'mediumspringgreen');
