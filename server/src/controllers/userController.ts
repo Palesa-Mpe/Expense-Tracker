@@ -69,10 +69,9 @@ export const UserController = {
 
   async verifyUser(req: Request, res: Response) {
     if (req.headers.authorization) {
-      console.log(TokenHelper.decodeToken(req.headers.authorization));
+      const response = await TokenHelper.decodeToken(req.headers.authorization[0]);
+      
+      console.log(response);
     }
-
-    console.log();
-    
   },
 };
