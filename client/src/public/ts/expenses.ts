@@ -61,7 +61,7 @@ form.addEventListener('submit', async (event) => {
 
   const formData = new FormData(form);
   
-  const url = `${apiURL}/expenses`;
+  const url = `${apiURL}/expenses/`;
   const formObject: { [key: string]: any } = {};
   formData.forEach((value, key) => {
     formObject[key] = value;
