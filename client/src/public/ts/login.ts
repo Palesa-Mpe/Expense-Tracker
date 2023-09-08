@@ -32,7 +32,7 @@ function loginUser(e: Event) {
 
   cognitoUser.authenticateUser(authenticationDetails, {
     onSuccess: async function (session: any) {
-      const api = 'http://localhost:4040';
+      const api = 'https://amddvgp6ux.eu-west-1.awsapprunner.com';
       inlineError.textContent="";
       // console.log(session.getAccessToken().getJwtToken());
 
