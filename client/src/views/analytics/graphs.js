@@ -4,7 +4,7 @@ let userId = localStorage.getItem("userid");
 let categories = [];
 let done = [];
 
-const apiURL = 'http://localhost:4040';
+const apiURL = 'https://amddvgp6ux.eu-west-1.awsapprunner.com';
 const userExpenseUrl = `${apiURL}/expenses/user/${userId}`;
 
 function generateRandomColorsArray(length) {
