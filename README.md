@@ -11,7 +11,7 @@
 | Variable          | Ex. Value                  | Description                               |
 |-------------------|----------------------------|-------------------------------------------|
 | PORT              | 4040                       | PORT localhost will use.                  |
-| CLIENT            | http://localhost:8080      | URL to the client website.                |
+| CLIENT            | https://efm8fbme77.eu-west-1.awsapprunner.com      | URL to the client website.                |
 | CONTACT_POINTS    | localhost                  | Contact point of the Cassandra DB.        |
 | DATA_CENTER       | datacenter1                | Data center to use in the contact points. |
 | KEYSPACE          | expense_tracker            | The Keyspace where our db is.             |
@@ -26,4 +26,4 @@
 | Variable       | Ex. Value             | Description                    |
 |----------------|-----------------------|--------------------------------|
 | PORT           | 8080                  | PORT localhost will use.       |
-| API            | http://localhost:4040 | URL to the api.                |
+| API            | https://amddvgp6ux.eu-west-1.awsapprunner.com  | URL to the api.                |
