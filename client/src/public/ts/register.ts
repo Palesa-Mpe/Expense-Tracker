@@ -103,7 +103,7 @@ function authorizeUser(event: Event) {
       if (err) {
         console.log("Confirmation error:", err.message || JSON.stringify(err));
       } else {
-        const api = 'http://localhost:4040';
+        const api = 'https://amddvgp6ux.eu-west-1.awsapprunner.com';
         let request = {email: emailElement.innerText, userid: userIdentifier, username: usernameElement.innerText}
         fetch(`${api}/user`, {
           method: 'POST',
@@ -114,7 +114,7 @@ function authorizeUser(event: Event) {
         })
         .then((reponse) => {
           setTimeout(() => {
-            window.location.replace("http://localhost:8080/login");
+            window.location.replace("https://efm8fbme77.eu-west-1.awsapprunner.com/login");
           }, 1000);
         })
       }
