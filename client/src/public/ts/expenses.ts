@@ -5,7 +5,7 @@ const list = document.getElementById('dropdown-list') as HTMLUListElement;
 const form = document.getElementsByTagName("form").item(0) as HTMLFormElement;
 const outcome = document.getElementById("outcome") as HTMLHRElement;
 
-const apiURL: string = 'http://localhost:4040';
+const apiURL: string = 'https://amddvgp6ux.eu-west-1.awsapprunner.com';
 
 input.addEventListener('input', () => {
   const filter = input.value.toLowerCase();

@@ -1,4 +1,4 @@
-const api = 'http://localhost:4040';
+const api = 'https://amddvgp6ux.eu-west-1.awsapprunner.com';
 const infoSpans = document.getElementsByTagName('span');
 
 const userid = localStorage.getItem('userid') ?? "Dave";
