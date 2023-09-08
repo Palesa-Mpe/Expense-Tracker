@@ -61,7 +61,7 @@ form.addEventListener('submit', async (event) => {
 
   const formData = new FormData(form);
   
-  const url = `${apiURL}/expenses`;
+  const url = `${apiURL}/expenses/`;
   const formObject: { [key: string]: any } = {};
   formData.forEach((value, key) => {
     formObject[key] = value;
@@ -93,7 +93,8 @@ form.addEventListener('submit', async (event) => {
       }).then(response => response.json())
       .then(data => {
         outcome.hidden = false;
-        if (data.success) {
+
+        if (data?.rowLength > 0) {
           console.log('Form data submitted successfully');
           document.documentElement.style
           .setProperty('--outcome-background', 'mediumspringgreen');

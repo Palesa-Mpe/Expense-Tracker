@@ -46,11 +46,13 @@ export const ExpenseController = {
 
     async createExpense(req: Request, res: Response) {
         const result = await ExpenseRepository.createExpense(req.body);
-        if (result) {
-            res.status(201).json({success: true});
-        } else {
-            res.status(400).json({success: false, message:"Error"});
-        }
+        res.json(result);
+        //console.log('create,',result)
+        // if (result) {
+        //     res.status(201).json({success: true});
+        // } else {
+        //     res.status(400).json({success: false, message:"Error"});
+        // }
     },
 
     async updateExpense(req: Request, res: Response) {
