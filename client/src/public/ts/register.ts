@@ -114,7 +114,7 @@ function authorizeUser(event: Event) {
         })
         .then((reponse) => {
           setTimeout(() => {
-            window.location.replace("http://localhost:8080/login");
+            window.location.replace("https://efm8fbme77.eu-west-1.awsapprunner.com/login");
           }, 1000);
         })
       }
